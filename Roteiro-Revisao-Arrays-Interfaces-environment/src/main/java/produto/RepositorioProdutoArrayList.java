@@ -16,17 +16,17 @@ public class RepositorioProdutoArrayList {
 	 * A estrutura onde os produtos sao mantidos. Voce nao precisa se preocupar por enquanto
 	 * com o uso de generics em ArrayList.
 	 */
-	private ArrayList produtos;
+	private ArrayList<Produto> produtos;
 	
 	/**
 	 * A posicao do ultimo elemento inserido no array de produtos. o valor inicial é -1 
 	 * para indicar que nenhum produto foi ainda guardado no array.
 	 */
-	private int index = -1;
+//	private int index = -1;
 	
 	public RepositorioProdutoArrayList(int size) {
 		super();
-		this.produtos = new ArrayList();
+		this.produtos = new ArrayList<>();
 	}
 	
 	/**
@@ -39,8 +39,12 @@ public class RepositorioProdutoArrayList {
 	 * @return
 	 */
 	private int procurarIndice(int codigo){
-		//TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
+		for (int i = 0; i < produtos.size(); i++) {
+			if (produtos.get(i).getCodigo() == codigo) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	/**
@@ -50,16 +54,18 @@ public class RepositorioProdutoArrayList {
 	 * @return
 	 */
 	public boolean existe(int codigo){
-		//TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (procurarIndice(codigo) != -1) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/**
 	 * Insere um novo produto (sem se preocupar com duplicatas)
 	 */
 	public void inserir(Produto produto){
-		//TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
+		this.produtos.add(produto);
 	}
 	
 	/**
@@ -67,8 +73,12 @@ public class RepositorioProdutoArrayList {
 	 * Note que, para localizacao, o código do produto será utilizado.
 	 */
 	public void atualizar(Produto produto){
-		//TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
+		int indice = procurarIndice(produto.getCodigo());
+		if (indice != -1) {
+			this.produtos.add(indice, produto);
+		} else {
+			throw new IllegalAccessError("Produto nao existe na lista de produtos");
+		}
 	}
 	
 	/**
@@ -77,8 +87,8 @@ public class RepositorioProdutoArrayList {
 	 * @param codigo
 	 */
 	public void remover(int codigo){
-		//TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
+		int indice = procurarIndice(codigo);
+		this.produtos.remove(indice);
 	}
 	
 	/**
@@ -88,7 +98,11 @@ public class RepositorioProdutoArrayList {
 	 * @return
 	 */
 	public Produto procurar(int codigo){
-		//TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
+		int indice = procurarIndice(codigo);
+		if (indice != -1) {
+			return this.produtos.get(indice);
+		} else {
+			throw new IllegalAccessError("Impossivel remover, arquivo inexistente");
+		}
 	}
 }

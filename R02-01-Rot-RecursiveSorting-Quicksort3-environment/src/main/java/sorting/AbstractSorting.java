@@ -4,7 +4,10 @@ public abstract class AbstractSorting <T extends Comparable<T>> implements Sorti
 
 	@Override
 	public void sort(T[] array) {
-		sort(array, 0, array.length-1);
+		if (array != null) {
+			sort(array, 0, array.length-1);
+		}
+		
 	}
 	
 	/**

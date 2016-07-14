@@ -1,6 +1,8 @@
 package sorting.divideAndConquer;
 
 
+import javax.swing.text.AbstractDocument.LeafElement;
+
 import sorting.AbstractSorting;
 import util.Util;
 
@@ -16,8 +18,9 @@ public class QuickSort<T extends Comparable<T>> extends AbstractSorting<T> {
 
 	@Override
 	public void sort(T[] array,int leftIndex, int rightIndex) {
-		quickSort(array, leftIndex, rightIndex);
-	
+		if (validation(array, leftIndex, rightIndex)) {
+			quickSort(array, leftIndex, rightIndex);
+		}
 	}
 	
 	
@@ -41,10 +44,36 @@ public class QuickSort<T extends Comparable<T>> extends AbstractSorting<T> {
 			} else {
 				Util.swap(array, i, j);
 			}
-		}
+		} 
 		Util.swap(array, leftIndex, j);
 		return j;
 	}
+	
+	private boolean validation(T[] array, int leftIndex, int rightIndex) {
+		if (array == null) {
+			return false;
+		} else if (leftIndex < 0 || rightIndex > array.length) {
+			return false;
+		} else if (leftIndex > rightIndex || rightIndex < leftIndex) {
+			return false;
+		} else if (containsNull(array)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+
+	private boolean containsNull(T[] array) {
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] ==  null) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+
 	
 	
 }

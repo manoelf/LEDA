@@ -7,8 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import sorting.AbstractSorting;
-import sorting.divideAndConquer.MergeSort;
-import sorting.divideAndConquer.QuickSort;
+import sorting.divideAndConquer.quicksort3.QuickSortMedianOfThree;
 
 public class StudentSortingTest {
 
@@ -35,7 +34,7 @@ public class StudentSortingTest {
 	 * Método que inicializa a implementação a ser testada com a implementação do aluno
 	 */
 	private void getImplementation() {
-		this.implementation = new MergeSort<>();
+		this.implementation = new QuickSortMedianOfThree<>();
 	}
 
 	public void populaVetorTamanhoPar(Integer[] arrayPadrao){
@@ -96,4 +95,5 @@ public class StudentSortingTest {
 	 * PARA TESTAR A ORDENACAO EM UM PEDAÇO DO ARRAY. DICA: PROCUREM SEGUIR A ESTRUTURA DOS
 	 * MÉTODOS DE TESTE ACIMA DESCRITOS, ORDENANDO APENAS UMA PARTE DO ARRAY.
 	 */
+	
 }

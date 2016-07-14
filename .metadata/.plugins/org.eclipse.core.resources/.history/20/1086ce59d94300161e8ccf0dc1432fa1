@@ -1,0 +1,49 @@
+package sorting.test;
+
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import junit.framework.Assert;
+import sorting.Sorting;
+import sorting.simpleSorting.BubbleSort;
+
+public class BubbleSortTest {
+	
+	BubbleSort bubble;
+	Integer[] arrayNull;
+	Integer[] array;
+	Integer[] teste;
+	
+	@Before
+	public void setUp() {
+		Integer[] arrayNull = new Integer[] {null, null, null};
+		Integer[] b = new Integer[] {6, 41, 32, 7, 26, 4, 37, 49, 11, 18, 36};
+		Integer[] c = new Integer[] {4, 9, 3, 4, 0, 5, 1, 4};
+		Integer[] d = new Integer[] {6, 6, 6, 6, 6, 6};
+		
+		bubble = new BubbleSort();
+		
+	}
+
+	@Test
+	public void ArrayNull() {
+		this.bubble.sort(arrayNull, 1, 1);
+		
+		
+		array = new Integer[] {4, 1, 2, 4, 6, 4, 2, 0};
+		teste = new Integer[] {1, 2, 4, 4, 6, 4, 2, 0};
+		
+		bubble.sort(array, 0, 2);
+		
+		for (int i = 0; i <= 2; i++) {
+			Assert.assertTrue(array[i] == teste[i]);
+			System.out.println(array[i] == teste[i]);
+			
+		}
+	
+	
+	}
+
+}

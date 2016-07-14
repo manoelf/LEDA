@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="StudentSortingTest (1)" project="R02-01-Rot-RecursiveSorting-Quicksort3-environment" tests="5" started="5" failures="0" errors="0" ignored="0">
+  <testsuite name="sorting.test.StudentSortingTest" time="0.0">
+    <testcase name="testSort01" classname="sorting.test.StudentSortingTest" time="0.0"/>
+    <testcase name="testSort02" classname="sorting.test.StudentSortingTest" time="0.0"/>
+    <testcase name="testSort03" classname="sorting.test.StudentSortingTest" time="0.0"/>
+    <testcase name="testSort04" classname="sorting.test.StudentSortingTest" time="0.0"/>
+    <testcase name="testSort05" classname="sorting.test.StudentSortingTest" time="0.0"/>
+  </testsuite>
+</testrun>

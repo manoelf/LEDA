@@ -1,0 +1,40 @@
+import java.util.Scanner;
+
+class StoogeSort {
+
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		String[] valores = sc.nextLine().split(" ");
+		
+		
+	}
+	
+	public static void swap(String[] A, int inicio, int fim) {
+		String temp = A[inicio];
+		A[inicio] = A[fim];
+		A[fim] = temp;
+	}
+
+	
+	public void stoogeSort(String[] A, int inicio, int fim) {
+		if (conv(A[fim]) < conv(A[inicio])) 
+			swap(A, inicio, fim);
+		
+		if (inicio + 1 >= 	fim)
+			return;
+		int divisor = (fim - inicio + 1)/3;
+		
+		stoogeSort(A, inicio, fim - divisor);
+		stoogeSort(A, inicio + divisor, fim);
+		stoogeSort(A, inicio, fim - divisor);
+	}
+	
+	public int conv(String valor) {
+		int num = Integer.parseInt(valor);
+		return num;
+	}
+	
+}

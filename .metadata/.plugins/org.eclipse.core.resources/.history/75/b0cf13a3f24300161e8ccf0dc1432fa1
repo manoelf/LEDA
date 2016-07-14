@@ -1,0 +1,66 @@
+package sorting.simpleSorting;
+
+import java.lang.reflect.Array;
+
+import sorting.AbstractSorting;
+import util.Util;
+
+/**
+ * The selection sort algorithm chooses the smallest element from the array and
+ * puts it in the first position. Then chooses the second smallest element and
+ * stores it in the second position, and so on until the array is sorted.
+ */
+public class SelectionSort<T extends Comparable<T>> extends AbstractSorting<T>{
+
+	@Override
+	public void sort(T[] array, int leftIndex, int rightIndex) {
+		int menor;
+		if (isOK(array, leftIndex, rightIndex)){
+			for (int i = leftIndex; i <= rightIndex; i++) {
+				menor = i;
+				for (int j = i; j <= rightIndex; j++) {
+					if (array[j].compareTo(array[menor]) < 0) {
+						menor = j;
+					}
+				}
+				Util.swap(array, i, menor);
+			}
+		}
+	}
+	
+	
+	
+	private boolean containsNull(T[] array) {
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] == null) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean isOK(T[] array, int leftIndex, int rightIndex) {
+		int length = array.length;
+		if (array == null) {
+			return false;
+		} else if (containsNull(array)) {
+			return false;
+		} else if (isValidInex(length, leftIndex, rightIndex)) {
+			return true;
+		} else {
+			return true;
+		}
+	}
+	
+	private boolean isValidInex(int length, int leftIndex, int rightIndex) {
+		if (leftIndex > rightIndex || rightIndex < leftIndex ) {
+			return false;
+		} else if (leftIndex < 0 || rightIndex < 0) {
+			return false;
+		} else if (leftIndex > length || rightIndex > length) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+}

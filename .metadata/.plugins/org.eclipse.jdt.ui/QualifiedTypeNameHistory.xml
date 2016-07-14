@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.lang.IllegalAccessException"/>
+<fullyQualifiedTypeName name="java.lang.IllegalAccessError"/>
+<fullyQualifiedTypeName name="sorting.test.BubbleSortTest"/>
+<fullyQualifiedTypeName name="sorting.Sorting"/>
+<fullyQualifiedTypeName name="junit.framework.Assert"/>
+<fullyQualifiedTypeName name="sorting.simpleSorting.BubbleSort"/>
+<fullyQualifiedTypeName name="java.lang.reflect.Array"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="util.Util"/>
+<fullyQualifiedTypeName name="sorting.simpleSorting.InsertionSort"/>
+<fullyQualifiedTypeName name="sorting.simpleSorting.SelectionSort"/>
+<fullyQualifiedTypeName name="sorting.variationsOfBubblesort.BidirectionalBubbleSort"/>
+</qualifiedTypeNameHistroy>

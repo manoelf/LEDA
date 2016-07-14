@@ -1,0 +1,20 @@
+class StoogeSort {
+
+
+	public static void main(String[] args) {
+		
+	}
+	
+	public static void swap(int[] A, int inicio, int fim) {
+		int temp = A[inicio];
+		A[inicio] = A[fim];
+		A[fim] = temp;
+	}
+
+	
+	public void stoogeSort(int[] A, int inicio, int fim) {
+		if (A[fim] > A[inicio]))
+			
+			
+	}
+}

@@ -1,0 +1,5 @@
+INDEX VERSION 1.127+/home/manoel/git/LEDA/.metadata/.plugins/org.eclipse.jdt.core
+362616964.index
+1328577890.index
+2148992852.index
+3152370981.index

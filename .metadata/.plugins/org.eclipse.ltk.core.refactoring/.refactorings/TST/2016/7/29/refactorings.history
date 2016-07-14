@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename method &apos;StoogeSort.swap(...)&apos; to &apos;trocar&apos;&#x0A;- Original project: &apos;TST&apos;&#x0A;- Original element: &apos;StoogeSort.swap(...)&apos;&#x0A;- Renamed element: &apos;StoogeSort.trocar(...)&apos;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;swap&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;{StoogeSort.java[StoogeSort~swap~\[QString;~I~I" name="trocar" references="true" stamp="1468113525787" version="1.0"/>
-</session>

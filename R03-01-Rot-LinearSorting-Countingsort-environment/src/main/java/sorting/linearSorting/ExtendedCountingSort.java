@@ -14,27 +14,32 @@ public class ExtendedCountingSort extends AbstractSorting<Integer> {
 
 	@Override
 	public void sort(Integer[] array,int leftIndex, int rightIndex) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (validation(array, leftIndex, rightIndex)) {
+			countingSort(array, leftIndex, rightIndex);
+		}
 	}
 	
-	
+	/*
+	 * Aplicando a melhoria exigida (maior elemento menos menor elemento)
+	 * assim, alocando um tamanho minimo para o array que contabiliza a frequencia.
+	 * 
+	 * Eh usado um shift para poder considerar valores negativos, fazendo um shift do modulo do menor
+	 * elemento  e inserindo a partir da primeira posicao
+	 */
 	public void countingSort(Integer[] array, int leftIndex, int rightIndex) {
 		int min = min(array, leftIndex, rightIndex);
 		int max = max(array, leftIndex, rightIndex);
-		int tamanho = max;
-		int shift = 0;
-		if (min < 0) {
-			tamanho = max + Math.abs(min);
-			shift = Math.abs(min);
-		}
-		int[] frequencia = new int[tamanho];
 		
+		//
+		int tamanho = max - min;
+		int shift = min;
+		int[] frequencia = new int[tamanho +1];
+
 		//Frequencia
 		for (int i = leftIndex; i <= rightIndex; i++) {
-			frequencia[array[i]+shift]++;
+			frequencia[array[i]-shift]++;
 		}
-		
+
 		//Acomulativa
 		for (int i = 1; i < frequencia.length; i++) {
 			frequencia[i] += frequencia[i -1];
@@ -44,20 +49,19 @@ public class ExtendedCountingSort extends AbstractSorting<Integer> {
 		Integer[] ordenado = new Integer[array.length];
 		
 		for (int i = rightIndex; i >= leftIndex; i--) {
-			ordenado[frequencia[array[i] + shift]] = array[i];
-			frequencia[array[i] + shift]--;
+			frequencia[array[i] - shift]--;
+			ordenado[frequencia[array[i] - shift] + leftIndex] = array[i];
 		}
-		
 		
 		//Copia
 		for (int i = leftIndex; i <= rightIndex; i++) {
 			array[i] = ordenado[i];
 		}
-		
-		
 	}
 	
-	
+	/*
+	 * Busca o maior indice do array
+	 */
 	public Integer max(Integer[] array, int leftIndex, int rightIndex) {
 		int max = array[leftIndex];
 		
@@ -66,12 +70,13 @@ public class ExtendedCountingSort extends AbstractSorting<Integer> {
 				max = array[i];
 			}
 		}
-		
 		return max;
 	}
 
 	
-	
+	/*
+	 * Busca o menor indice do array
+	 */
 	public Integer min(Integer[] array, int leftIndex, int rightIndex) {
 		int min = array[leftIndex];
 		
@@ -80,29 +85,39 @@ public class ExtendedCountingSort extends AbstractSorting<Integer> {
 				min = array[i];
 			}
 		}
-		
 		return min;
 	}
 	
 	
-	public static void main(String[] args) {
-		ExtendedCountingSort counting = new ExtendedCountingSort();
-		
-		
-		Integer[] array = new Integer[] {3, 5, 2, 8, 9, 0, 1, 10, 2};
-		int left = 0;
-		int right = array.length - 1;
-		
-		
-		Integer[] auxiliar = Arrays.copyOf(array, array.length);
-		Arrays.sort(auxiliar, left, right + 1);
-		System.out.println("Array:    " + Arrays.toString(array));
-		
-		System.out.println("Esperado: " + Arrays.toString(auxiliar));
-		
-		counting.sort(array, left, right);
-		
-		System.out.println("Obtido:   " + Arrays.toString(array));
-
+	/*
+	 * Validacoes de casos excepcionais
+	 */
+	private boolean validation(Integer[] array, int leftIndex, int rightIndex) {
+		if (array == null) {
+			return false;
+		} else if (leftIndex < 0 || rightIndex > array.length) {
+			return false;
+		} else if (leftIndex > rightIndex || rightIndex < leftIndex) {
+			return false;
+		} else if (containsNull(array)) {
+			return false;
+		} else if (array.length == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
+
+	/*
+	 * Validacoes de casos excepcionais
+	 */
+	private boolean containsNull(Integer[] array) {
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] ==  null) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }

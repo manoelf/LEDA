@@ -26,7 +26,7 @@ public class CountingSort extends AbstractSorting<Integer> {
 		 int[] C = new int[max(array, leftIndex, rightIndex) + 1];
 		
 		 //Frequencia
-		for (int i = leftIndex; i < rightIndex+1; i++) {
+		for (int i = leftIndex; i <= rightIndex; i++) {
 			C[(int)array[i]]++;
 		}
 
@@ -51,7 +51,9 @@ public class CountingSort extends AbstractSorting<Integer> {
 	}
 	
 	
-	
+	/**
+	 * Buscando o maior indice do array
+	 */
 	public int max(Integer[] array,int leftIndex, int rightIndex) {
 		Integer max = array[leftIndex];
 		for (int i = leftIndex; i <= rightIndex; i++) {
@@ -64,6 +66,9 @@ public class CountingSort extends AbstractSorting<Integer> {
 	
 	
 	
+	/*
+	 * Validacoes de casos excepcionais
+	 */
 	private boolean validation(Integer[] array, int leftIndex, int rightIndex) {
 		if (array == null) {
 			return false;
@@ -73,12 +78,16 @@ public class CountingSort extends AbstractSorting<Integer> {
 			return false;
 		} else if (containsNull(array)) {
 			return false;
+		} else if (array.length == 0) {
+			return false;
 		} else {
 			return true;
 		}
 	}
 
-
+	/*
+	 * Validacoes de casos excepcionais
+	 */
 	private boolean containsNull(Integer[] array) {
 		for (int i = 0; i < array.length; i++) {
 			if (array[i] ==  null) {
@@ -87,6 +96,5 @@ public class CountingSort extends AbstractSorting<Integer> {
 		}
 		return false;
 	}
-	
 	
 }

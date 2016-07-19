@@ -9,6 +9,7 @@ import org.junit.experimental.theories.PotentialAssignment.CouldNotGenerateValue
 
 import sorting.AbstractSorting;
 import sorting.linearSorting.CountingSort;
+import sorting.linearSorting.ExtendedCountingSort;
 
 public class StudentSortingTest {
 
@@ -35,7 +36,7 @@ public class StudentSortingTest {
 	 * Método que inicializa a implementação a ser testada com a implementação do aluno
 	 */
 	private void getImplementation() {
-		this.implementation = new CountingSort();
+		this.implementation = new ExtendedCountingSort();
 	}
 
 	public void populaVetorTamanhoPar(Integer[] arrayPadrao){

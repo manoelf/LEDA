@@ -29,32 +29,7 @@ public class GnomeSort<T extends Comparable<T>> extends AbstractSorting<T> {
 		}
 	}
 
-	public static void main(String[] args) {
-		GnomeSort<Integer> sort = new GnomeSort<>();
-
-		Integer[] array = new Integer[] {4, 0, 2, 1, 5};
-		System.out.println(Arrays.toString(array));
-
-		sort.sort(array);
-		System.out.println(Arrays.toString(array));
-
-	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	/*
 	 * Validacoes de casos excepcionais
 	 */

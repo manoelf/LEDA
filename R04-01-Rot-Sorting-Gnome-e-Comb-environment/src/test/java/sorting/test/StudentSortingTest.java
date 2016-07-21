@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import sorting.AbstractSorting;
+import sorting.variationsOfBubblesort.CombSort;
 import sorting.variationsOfBubblesort.GnomeSort;
 
 public class StudentSortingTest {
@@ -34,7 +35,7 @@ public class StudentSortingTest {
 	 * Método que inicializa a implementação a ser testada com a implementação do aluno
 	 */
 	private void getImplementation() {
-		this.implementation = new GnomeSort<Integer>();
+		this.implementation = new CombSort<Integer>();
 	}
 
 	public void populaVetorTamanhoPar(Integer[] arrayPadrao){

@@ -80,7 +80,7 @@ public class RadixSort<T extends Comparable<T>> extends AbstractSorting<T> {
 	}
 
 	public static void main(String[] args) {
-		Integer[] array = new Integer[] { 3, 64, 21, 1, 9, 1213, 54, 123526, -1, -5};
+		Integer[] array = new Integer[] { 3, 64, 21, 1, 9, 1213, 54, 123526, -1, 5};
 
 		RadixSort<Integer> radix = new RadixSort<>();
 		radix.radix(array, 0, array.length - 1);

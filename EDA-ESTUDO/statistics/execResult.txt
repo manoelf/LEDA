@@ -16,3 +16,7 @@ Total of tests: 1 | Total time: 0s |(FAIL)
 InsertionSortRecurssive
 Total of tests: 2067 | Total time: 3s |(SUCCESS)
 ======================END=======================
+---------------------BEGIN----------------------
+InsertionSortRecurssive
+Total of tests: 1818 | Total time: 3s |(SUCCESS)
+======================END=======================

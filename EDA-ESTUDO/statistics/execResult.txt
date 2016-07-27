@@ -1,0 +1,18 @@
+---------------------BEGIN----------------------
+BubbleSortRecusive
+Total of tests: 2087 | Total time: 3s |(SUCCESS)
+======================END=======================
+---------------------BEGIN----------------------
+InsertionSortRecurssive
+Test(1) - leftIndex: -3 rightIndex: 0
+
+Input:    [46, -9, -35, 19, 2, 79, -51, 88]
+Expected: [46, -9, -35, 19, 2, 79, -51, 88]
+Obtained: java.lang.ArrayIndexOutOfBoundsException: -1
+
+Total of tests: 1 | Total time: 0s |(FAIL)
+======================END=======================
+---------------------BEGIN----------------------
+InsertionSortRecurssive
+Total of tests: 2067 | Total time: 3s |(SUCCESS)
+======================END=======================

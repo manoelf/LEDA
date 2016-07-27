@@ -8,33 +8,34 @@ public class SelectionRecursive<T extends Comparable<T>> extends AbstractSorting
 
 	@Override
 	public void sort(T[] array, int leftIndex, int rightIndex) {
-		selection(array, leftIndex, rightIndex);
+		recursaoExterna(array, leftIndex, rightIndex);
 	}
 	
 	
 	
 	
 
-	public int recursaoInterna(T[] array, int j, int key) {
-		if (j < array.length){
-			if (array[j].compareTo(array[key]) < 0) {
-				key = j;
+	public int recursaoInterna(T[] array, int leftIndex, int rightIndex, int key) {
+		if (leftIndex < rightIndex){
+			if (array[leftIndex].compareTo(array[key]) < 0) {
+				key = leftIndex;
 			}
-			key = recursaoInterna(array, ++j, key);
+			key = recursaoInterna(array, ++leftIndex, rightIndex, key);
 		}
 		return key;
 	}
 	
-	public void recursaoExterna(T[] array, int i, int key) {
-		if (i < array.length) {
-			key = recursaoInterna(array, i, i);
-			swap(array, i, key);
-			recursaoExterna(array, ++i, key);
+	public void recursaoExterna(T[] array, int leftIndex, int rightIndex) {
+		int key = leftIndex;
+		if (leftIndex < rightIndex) {
+			key = recursaoInterna(array, leftIndex, rightIndex, leftIndex);
+			swap(array, leftIndex, key);
+			recursaoExterna(array, ++leftIndex, rightIndex);
 		}
 	}
 	
 	public void selectionRecursive(T[] array, int left, int right) {
-		recursaoExterna(array, 0, 0);
+		recursaoExterna(array, 0, right);
 	}
 	
 	
@@ -70,7 +71,7 @@ public class SelectionRecursive<T extends Comparable<T>> extends AbstractSorting
 		Integer[] array = new Integer[] { 5, 3, 2, 6, 786, -1, 9, 23 };
 
 		//sort.selection(array, 0, 0);
-		sort.selectionRecursive(array, 0, 0);
+		sort.selectionRecursive(array, 0, array.length);
 
 		System.out.println(Arrays.toString(array));
 

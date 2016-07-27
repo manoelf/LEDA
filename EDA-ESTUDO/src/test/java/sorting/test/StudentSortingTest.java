@@ -7,6 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import sorting.AbstractSorting;
+import sorting.implementation.BubbleSortRecusive;
+import sorting.implementation.InsertionSortRecurssive;
+import sorting.implementation.SelectionRecursive;
 import sorting.variationsOfBubblesort.CombSort;
 import sorting.variationsOfBubblesort.GnomeSort;
 
@@ -35,7 +38,7 @@ public class StudentSortingTest {
 	 * Método que inicializa a implementação a ser testada com a implementação do aluno
 	 */
 	private void getImplementation() {
-		this.implementation = new CombSort<Integer>();
+		this.implementation = new SelectionRecursive<Integer>();
 	}
 
 	public void populaVetorTamanhoPar(Integer[] arrayPadrao){

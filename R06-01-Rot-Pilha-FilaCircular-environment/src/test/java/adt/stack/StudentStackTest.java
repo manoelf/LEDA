@@ -33,7 +33,7 @@ public class StudentStackTest {
 	
 	private void getImplementations(){
 		//TODO O aluno deve ajustar aqui para instanciar sua implementação
-		stack1 = new StackImpl<>(3);
+		stack1 = new StackImpl<>(4);
 		stack2 = new StackImpl<>(2);
 		stack3 = new StackImpl<>(3);
 	}
@@ -50,8 +50,8 @@ public class StudentStackTest {
 	}
 
 	@Test
-	public void testIsFull() {
-		assertTrue(stack1.isFull()); //vai depender do tamanho que a pilha foi iniciada!!!!
+	public void testIsNotFull() {
+		assertFalse(stack1.isFull()); //vai depender do tamanho que a pilha foi iniciada!!!!
 	}
 
 	@Test
@@ -66,6 +66,7 @@ public class StudentStackTest {
 	
 	@Test(expected=StackOverflowException.class)
 	public void testPushComErro() throws StackOverflowException {
+		stack1.push(new Integer(5));
 		stack1.push(new Integer(5)); //levanta excecao apenas se o tamanhonao permitir outra insercao
 	}
 
@@ -93,9 +94,16 @@ public class StudentStackTest {
 	public void meuTestPop() {
 		try {
 			
+			//[1, 2, 3]
+			//[x1, 2, 3]h=1, t=2
+			//[x1, x2, 3] h=2 t=2
+			//[5, x2, 3] h=2, t=0
+			//[5, 7, 3] h=2, t= 1
+			//[1,2,3] h=0 t=2
+			
 			stack1.push(4);
 			stack1.push(5);
-			stack1.push(6);
+			//stack1.push(6);
 			
 			Assert.assertEquals(true, stack1.isFull());
 			
@@ -107,6 +115,10 @@ public class StudentStackTest {
 			Assert.assertTrue(stack1.pop().equals(1));
 			
 			stack1.pop();
+			stack1.pop();
+			stack1.pop();
+			stack1.pop();
+			
 			
 		} catch (Exception e) {
 			Assert.assertEquals("Stack is empty", e.getMessage());

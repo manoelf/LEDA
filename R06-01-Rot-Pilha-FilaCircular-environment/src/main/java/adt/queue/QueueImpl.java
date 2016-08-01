@@ -14,31 +14,39 @@ public class QueueImpl<T> implements Queue<T> {
 
 	@Override
 	public T head() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");		
+		if (isEmpty()) {
+			return null;
+		} else {
+			return array[tail];
+		}
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return tail == -1;
 	}
 
 	@Override
 	public boolean isFull() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return tail == array.length -1;
 	}
 	
 	private void shiftLeft(){
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		for (int i = 0; i < tail; i++) {
+			this.array[i] = array[i+1];
+		}
 	}
 
 	@Override
 	public void enqueue(T element) throws QueueOverflowException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (isFull()) {
+			throw new QueueOverflowException();
+		} else if (isEmpty() && element != null) {
+			this.tail = 0;
+			this.array[tail] = element;
+		} else if (element != null) {
+			this.array[++tail] = element;
+		}
 	}
 
 	@Override

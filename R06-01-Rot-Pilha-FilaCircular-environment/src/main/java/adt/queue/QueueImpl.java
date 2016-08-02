@@ -8,8 +8,12 @@ public class QueueImpl<T> implements Queue<T> {
 	
 	@SuppressWarnings("unchecked")
 	public QueueImpl(int size) {
+		if (size < 0) {
+			size = 0;
+		}
 		array = (T[])new Object[size];
 		tail = -1;
+		
 	}
 
 	@Override
@@ -17,7 +21,7 @@ public class QueueImpl<T> implements Queue<T> {
 		if (isEmpty()) {
 			return null;
 		} else {
-			return array[tail];
+			return array[0];
 		}
 	}
 
@@ -35,6 +39,7 @@ public class QueueImpl<T> implements Queue<T> {
 		for (int i = 0; i < tail; i++) {
 			this.array[i] = array[i+1];
 		}
+		this.tail--;
 	}
 
 	@Override
@@ -51,9 +56,16 @@ public class QueueImpl<T> implements Queue<T> {
 
 	@Override
 	public T dequeue() throws QueueUnderflowException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		T element;
+		if (isEmpty()) {
+			throw new QueueUnderflowException();
+		} else {
+			element = this.array[0];
+		}
+		shiftLeft();
+		return element;
 	}
+	
 
 
 }

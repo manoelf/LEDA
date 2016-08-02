@@ -93,22 +93,10 @@ public class StudentStackTest {
 	@Test
 	public void meuTestPop() {
 		try {
-			
-			//[1, 2, 3]
-			//[x1, 2, 3]h=1, t=2
-			//[x1, x2, 3] h=2 t=2
-			//[5, x2, 3] h=2, t=0
-			//[5, 7, 3] h=2, t= 1
-			//[1,2,3] h=0 t=2
-			
 			stack1.push(4);
-			stack1.push(5);
-			//stack1.push(6);
 			
 			Assert.assertEquals(true, stack1.isFull());
 			
-			Assert.assertTrue(stack1.pop().equals(6));
-			Assert.assertTrue(stack1.pop().equals(5));
 			Assert.assertTrue(stack1.pop().equals(4));
 			Assert.assertTrue(stack1.pop().equals(3));
 			Assert.assertTrue(stack1.pop().equals(2));
@@ -118,7 +106,7 @@ public class StudentStackTest {
 			stack1.pop();
 			stack1.pop();
 			stack1.pop();
-			
+		
 			
 		} catch (Exception e) {
 			Assert.assertEquals("Stack is empty", e.getMessage());

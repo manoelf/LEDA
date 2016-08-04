@@ -22,7 +22,7 @@ public class SingleLinkedListNode<T> {
 	}
 	
 	public boolean isNIL(){
-		return (this.data == null);
+		return (this.data == null && this.next == null);
 	}
 	@Override
 	public String toString(){

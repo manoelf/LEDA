@@ -12,7 +12,7 @@ public class StudentDoubleLinkedListTest extends StudentLinkedListTest{
 	
 	@Before
 	public void setUp() throws Exception {
-
+		super.setUp();
 		getImplementations();
 		
 		// Lista com 3 elementos.
@@ -27,9 +27,9 @@ public class StudentDoubleLinkedListTest extends StudentLinkedListTest{
 	
 	private void getImplementations(){
 		//TODO O aluno deve ajustar aqui para instanciar sua implementação
-		lista1 = null;
-		lista2 = null;
-		lista3 = null;
+		lista1 = new DoubleLinkedListImpl<Integer>();
+		lista2 = new DoubleLinkedListImpl<Integer>();
+		lista3 = new DoubleLinkedListImpl<Integer>();
 	}
 
 		

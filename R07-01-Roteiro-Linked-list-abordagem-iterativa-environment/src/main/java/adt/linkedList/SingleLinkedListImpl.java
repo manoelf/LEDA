@@ -3,11 +3,9 @@ package adt.linkedList;
 public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
 	protected SingleLinkedListNode<T> head;
-	private int size;
 
 	public SingleLinkedListImpl() {
 		this.head = new SingleLinkedListNode<T>();
-		this.size = 0;
 	}
 
 	@Override
@@ -17,7 +15,14 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public int size() {
-		return this.size;
+		int size = 0;
+		SingleLinkedListNode<T> aux = this.head;
+		
+		while (!aux.isNIL()) {
+			size++;
+			aux = aux.getNext();
+		}
+		return size;
 	}
 
 	@Override
@@ -48,7 +53,6 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 			SingleLinkedListNode<T> newNode = new SingleLinkedListNode<>(element, nodeElement);
 			if (isEmpty()) {
 				this.head = newNode;
-				this.size++;
 			} else {
 
 				SingleLinkedListNode<T> aux = this.head;
@@ -57,7 +61,6 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 					aux = aux.getNext();
 				}
 				aux.setNext(newNode);
-				size++;
 			}
 		}
 	}
@@ -66,9 +69,8 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 	public void remove(T element) {
 		if (!isEmpty() && element != null) {
 			if (this.head.getData().equals(element)) {
-				SingleLinkedListNode<T> newHead = new SingleLinkedListNode<>();
+				SingleLinkedListNode<T> newHead = head.next;
 				setHead(newHead);
-				size--;
 			} else {
 				SingleLinkedListNode<T> aux = this.head;
 
@@ -79,16 +81,14 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 				if (!aux.next.isNIL()) {
 					SingleLinkedListNode<T> newNext = aux.next.getNext();
 					aux.setNext(newNext);
-					size--;
 				}
 			}
-
 		}
 	}
 
 	@Override
 	public T[] toArray() {
-		T[] array = (T[]) new Object[this.size];
+		T[] array = (T[]) new Object[size()];
 
 		int cont = 0;
 		SingleLinkedListNode<T> aux = this.head;
@@ -98,9 +98,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 			aux = aux.getNext();
 			cont++;
 		}
-
 		return array;
-
 	}
 
 	public SingleLinkedListNode<T> getHead() {

@@ -17,28 +17,23 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 	@Override
 	public boolean isEmpty() {
 		return (this.data == null);
-
 	}
 
 	@Override
 	public int size() {
 		if (isEmpty()) {
 			return 0;
-		} else if (this.next == null) {
-			return 1;
 		} else {
-			return next.size();
+			return 1 + next.size();
 		}
 	}
 
 	@Override
 	public T search(T element) {
-		if (isEmpty()) {
+		if (isEmpty() || element == null) {
 			return null;
 		} else if (this.data.equals(element)) {
 			return this.data;
-		} else if (this.next == null) {
-			return null;
 		} else {
 			return next.search(element);
 		}
@@ -46,24 +41,46 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public void insert(T element) {
-		if (isEmpty()) {
-			this.data = element;
-		} else if (this.next == null) {
-			RecursiveSingleLinkedListImpl<T> newNode = new RecursiveSingleLinkedListImpl<>(element, null);
-			this.next = newNode;
-		} else {
-			this.next.insert(element);
+		if (element != null) {
+			if (isEmpty()) {
+				this.data = element;
+				this.next = makeNil();
+			} else {
+				next.insert(element);
+			}
 		}
 	}
 
 	@Override
 	public void remove(T element) {
+		if (!isEmpty() && element != null) {
+			if (this.data.equals(element)) {
+				if (this.next.isEmpty()) {
+					this.data = null;
+					this.next = null;
+				} else {
+					this.data = next.getData();
+					this.next = next.next;
+				}
+			} else {
+				next.remove(element);
+			}
+		}
 	}
 
 	@Override
 	public T[] toArray() {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented yet!");
+		@SuppressWarnings("unchecked")
+		T[] array = (T[]) new Object[size()];
+		helpToArray(this, array, 0);
+		return array;
+	}
+
+	private void helpToArray(RecursiveSingleLinkedListImpl<T> node, T[] array, int index) {
+		if (!node.isEmpty()) {	
+			array[index] = node.getData();
+			helpToArray(node.getNext(), array, index + 1);
+		}
 	}
 
 	public T getData() {
@@ -80,6 +97,10 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 
 	public void setNext(RecursiveSingleLinkedListImpl<T> next) {
 		this.next = next;
+	}
+
+	private RecursiveSingleLinkedListImpl<T> makeNil() {
+		return new RecursiveSingleLinkedListImpl<>();
 	}
 
 }

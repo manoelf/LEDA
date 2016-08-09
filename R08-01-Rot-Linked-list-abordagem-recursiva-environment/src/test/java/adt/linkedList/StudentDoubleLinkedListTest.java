@@ -12,7 +12,7 @@ public class StudentDoubleLinkedListTest extends StudentLinkedListTest {
 
 	@Before
 	public void setUp() throws Exception {
-
+		super.setUp();
 		getImplementations();
 
 		// Lista com 3 elementos.
@@ -26,9 +26,9 @@ public class StudentDoubleLinkedListTest extends StudentLinkedListTest {
 
 	private void getImplementations() {
 		// TODO O aluno deve ajustar aqui para instanciar sua implementação
-		lista1 = null;
-		lista2 = null;
-		lista3 = null;
+		lista1 = new RecursiveDoubleLinkedListImpl<Integer>();
+		lista2 = new RecursiveDoubleLinkedListImpl<Integer>();
+		lista3 = new RecursiveDoubleLinkedListImpl<Integer>();
 	}
 
 	// Métodos de DoubleLinkedList

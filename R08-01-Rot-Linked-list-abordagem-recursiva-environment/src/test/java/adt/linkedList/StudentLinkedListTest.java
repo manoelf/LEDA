@@ -25,8 +25,8 @@ public class StudentLinkedListTest {
 
 	private void getImplementations() {
 		// TODO O aluno deve ajustar aqui para instanciar sua implementação
-		lista1 = new RecursiveSingleLinkedListImpl<>();
-		lista2 = new RecursiveSingleLinkedListImpl<>();
+		lista1 = new RecursiveDoubleLinkedListImpl<>();
+		lista2 = new RecursiveDoubleLinkedListImpl<>();
 	}
 
 	@Test

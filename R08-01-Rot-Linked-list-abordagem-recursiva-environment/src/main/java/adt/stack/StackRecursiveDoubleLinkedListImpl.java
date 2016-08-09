@@ -1,6 +1,7 @@
 package adt.stack;
 
 import adt.linkedList.DoubleLinkedList;
+import adt.linkedList.RecursiveDoubleLinkedListImpl;
 
 public class StackRecursiveDoubleLinkedListImpl<T> implements Stack<T> {
 
@@ -9,36 +10,48 @@ public class StackRecursiveDoubleLinkedListImpl<T> implements Stack<T> {
 
 	public StackRecursiveDoubleLinkedListImpl(int size) {
 		this.size = size;
+		this.list = new RecursiveDoubleLinkedListImpl<>();
 	}
 
 	@Override
 	public void push(T element) throws StackOverflowException {
-		// TODO Implement the method
-		throw new UnsupportedOperationException("Method not implemented");
+		if (element != null) {
+			if (isFull()) {
+				throw new StackOverflowException();
+			} else {
+				this.list.insert(element);
+			}
+		}
 	}
 
 	@Override
 	public T pop() throws StackUnderflowException {
-		// TODO Implement the method
-		throw new UnsupportedOperationException("Method not implemented");
+		if (isEmpty()) {
+			throw new StackUnderflowException();
+		} else {
+			T element =  top();
+			this.list.removeLast();
+			return element;
+		}
 	}
 
 	@Override
 	public T top() {
-		// TODO Implement the method
-		throw new UnsupportedOperationException("Method not implemented");
+		if (isEmpty()) {
+			return null;
+		} else {
+			return this.list.toArray()[list.size()-1];
+		}
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Implement the method
-		throw new UnsupportedOperationException("Method not implemented");
+		return this.list.isEmpty();
 	}
 
 	@Override
 	public boolean isFull() {
-		// TODO Implement the method
-		throw new UnsupportedOperationException("Method not implemented");
+		return (this.list.size() == this.size);
 	}
 
 }

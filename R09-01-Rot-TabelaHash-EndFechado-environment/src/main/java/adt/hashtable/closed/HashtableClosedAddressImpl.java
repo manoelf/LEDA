@@ -8,8 +8,7 @@ import adt.hashtable.hashfunction.HashFunctionClosedAddress;
 import adt.hashtable.hashfunction.HashFunctionClosedAddressMethod;
 import adt.hashtable.hashfunction.HashFunctionFactory;
 
-public class HashtableClosedAddressImpl<T> extends
-		AbstractHashtableClosedAddress<T> {
+public class HashtableClosedAddressImpl<T> extends AbstractHashtableClosedAddress<T> {
 
 	/**
 	 * A hash table with closed address works with a hash function with closed
@@ -32,8 +31,7 @@ public class HashtableClosedAddressImpl<T> extends
 	 */
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public HashtableClosedAddressImpl(int desiredSize,
-			HashFunctionClosedAddressMethod method) {
+	public HashtableClosedAddressImpl(int desiredSize, HashFunctionClosedAddressMethod method) {
 		int realSize = desiredSize;
 
 		if (method == HashFunctionClosedAddressMethod.DIVISION) {
@@ -42,8 +40,7 @@ public class HashtableClosedAddressImpl<T> extends
 														// above
 		}
 		initiateInternalTable(realSize);
-		HashFunction function = HashFunctionFactory.createHashFunction(method,
-				realSize);
+		HashFunction function = HashFunctionFactory.createHashFunction(method, realSize);
 		this.hashFunction = function;
 	}
 
@@ -64,8 +61,7 @@ public class HashtableClosedAddressImpl<T> extends
 	@Override
 	public void insert(T element) {
 		if (element != null) {
-			int hash = ((HashFunctionClosedAddress<T>) this.hashFunction)
-					.hash(element);
+			int hash = ((HashFunctionClosedAddress<T>) this.hashFunction).hash(element);
 
 			if (this.table[hash] == null) {
 				LinkedList<T> frame = new LinkedList<>();
@@ -73,9 +69,11 @@ public class HashtableClosedAddressImpl<T> extends
 				this.table[hash] = frame;
 				this.elements++;
 			} else {
-				((LinkedList<T>) this.table[hash]).add(element);
-				this.COLLISIONS++;
-				this.elements++;
+				if (!((LinkedList<T>) this.table[hash]).contains(element)) {
+					((LinkedList<T>) this.table[hash]).add(element);
+					this.COLLISIONS++;
+					this.elements++;
+				}
 			}
 		}
 	}
@@ -83,11 +81,9 @@ public class HashtableClosedAddressImpl<T> extends
 	@Override
 	public void remove(T element) {
 		if (element != null && !isEmpty()) {
-			int hash = ((HashFunctionClosedAddress<T>) this.hashFunction)
-					.hash(element);
+			int hash = ((HashFunctionClosedAddress<T>) this.hashFunction).hash(element);
 			if (this.table[hash] != null) {
 				((LinkedList<T>) this.table[hash]).remove(element);
-				this.COLLISIONS--;
 				this.elements--;
 			}
 		}
@@ -97,14 +93,13 @@ public class HashtableClosedAddressImpl<T> extends
 	public T search(T element) {
 		T newElement = null;
 		if (element != null && !isEmpty()) {
-			int hash = ((HashFunctionClosedAddress<T>) this.hashFunction)
-					.hash(element);
-				if (this.table[hash] != null) {
-					if (((LinkedList<T>) this.table[hash]).contains(element)) {
-						newElement = element;
-					}
-
+			int hash = ((HashFunctionClosedAddress<T>) this.hashFunction).hash(element);
+			if (this.table[hash] != null) {
+				if (((LinkedList<T>) this.table[hash]).contains(element)) {
+					newElement = element;
 				}
+
+			}
 		}
 		return newElement;
 	}
@@ -113,8 +108,7 @@ public class HashtableClosedAddressImpl<T> extends
 	public int indexOf(T element) {
 		int index = -1;
 		if (element != null && !isEmpty()) {
-			int hash = ((HashFunctionClosedAddress<T>) this.hashFunction)
-					.hash(element);
+			int hash = ((HashFunctionClosedAddress<T>) this.hashFunction).hash(element);
 			if (this.table[hash] != null) {
 				if (((LinkedList<T>) this.table[hash]).contains(element)) {
 					index = hash;
@@ -122,6 +116,18 @@ public class HashtableClosedAddressImpl<T> extends
 			}
 		}
 		return index;
+	}
+
+	public void removeAll() {
+		for (int i = 0; i < table.length; i++) {
+			this.table[i] = null;
+		}
+		this.elements = 0;
+		this.COLLISIONS = 0;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(Util.isPrime(120));
 	}
 
 }

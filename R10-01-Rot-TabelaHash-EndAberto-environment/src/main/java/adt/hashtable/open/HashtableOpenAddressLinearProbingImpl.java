@@ -1,14 +1,11 @@
 package adt.hashtable.open;
 
-
 import adt.hashtable.hashfunction.HashFunctionClosedAddressMethod;
 import adt.hashtable.hashfunction.HashFunctionLinearProbing;
 
-public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends
-		AbstractHashtableOpenAddress<T> {
+public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends AbstractHashtableOpenAddress<T> {
 
-	public HashtableOpenAddressLinearProbingImpl(int size,
-			HashFunctionClosedAddressMethod method) {
+	public HashtableOpenAddressLinearProbingImpl(int size, HashFunctionClosedAddressMethod method) {
 		super(size);
 		hashFunction = new HashFunctionLinearProbing<T>(size, method);
 		this.initiateInternalTable(size);
@@ -16,15 +13,15 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends
 
 	@Override
 	public void insert(T element) {
-		if (isFull()) {
-			throw new HashtableOverflowException();
-			
-		} else 	if (element != null ) {
-			int hash; 
-			
+		if (element != null) {
+			if (isFull()) {
+				throw new HashtableOverflowException();
+			}
+			int hash;
+
 			for (int probe = 0; probe < capacity(); probe++) {
 				hash = calculeHash(element, probe);
-				
+
 				if (this.table[hash] == null || this.table[hash].equals(new DELETED())) {
 					this.table[hash] = element;
 					this.elements++;
@@ -37,29 +34,29 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends
 					this.COLLISIONS++;
 				}
 			}
-			
-			}
+
+		}
 	}
 
 	@Override
 	public void remove(T element) {
 		if (element != null && !isEmpty()) {
-			
+
 			int index = indexOf(element);
-			
+
 			if (index != -1) {
 				this.table[index] = new DELETED();
 				this.elements--;
 			}
 		}
-	 
+
 	}
 
 	@Override
 	public T search(T element) {
 		if (element != null && !isEmpty()) {
 			int index = indexOf(element);
-			
+
 			if (index != -1) {
 				return element;
 			}
@@ -72,8 +69,8 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends
 		if (element != null && !isEmpty()) {
 			int probe = 0;
 			int hash = calculeHash(element, probe);
-			
-			while (this.table[hash] != null && probe < capacity()){
+
+			while (this.table[hash] != null && probe < capacity()) {
 				if (this.table[hash].equals(element)) {
 					return hash;
 				}
@@ -83,8 +80,7 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends
 		}
 		return -1;
 	}
-	
-	
+
 	private int calculeHash(T element, int probe) {
 		return ((HashFunctionLinearProbing<T>) hashFunction).hash(element, probe);
 	}

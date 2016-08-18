@@ -1,13 +1,9 @@
 package adt.bst;
 
-<<<<<<< HEAD
-=======
 import java.util.Arrays;
-import java.util.Comparator;
 
 import adt.bt.BTNode;
 
->>>>>>> d48ea24bba598eeb7e71565f1d0476de2a34e31c
 public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	protected  BSTNode<T> root;
@@ -40,21 +36,11 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	@Override
 	public void insert(T element) {
-<<<<<<< HEAD
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented yet!");
-	}
-
-	@Override
-	public BSTNode<T> maximum() {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented yet!");
-=======
 		if (element != null) {
 			insert(this.root, element);
 		}
-	
 	}
+
 
 	private void insert(BTNode<T> node, T element) {
 		if (node.isEmpty()) {
@@ -82,15 +68,10 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		} else {
 			return maximum((BSTNode<T>)node.getRight());
 		}
->>>>>>> d48ea24bba598eeb7e71565f1d0476de2a34e31c
 	}
 
 	@Override
 	public BSTNode<T> minimum() {
-<<<<<<< HEAD
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented yet!");
-=======
 		if (isEmpty()) {
 			return null;
 		}
@@ -103,7 +84,6 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		} else {
 			return minimum((BSTNode<T>)node.getLeft());
 		}
->>>>>>> d48ea24bba598eeb7e71565f1d0476de2a34e31c
 	}
 
 	@Override
@@ -126,10 +106,6 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	@Override
 	public T[] preOrder() {
-<<<<<<< HEAD
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented yet!");
-=======
 		T[] array = (T[]) new Comparable[this.size()];
 		preOrder(this.root, array, 0);
 		return array;
@@ -142,15 +118,10 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			index = preOrder(node.getRight(), array, index);
 		}
 		return index;
->>>>>>> d48ea24bba598eeb7e71565f1d0476de2a34e31c
 	}
 
 	@Override
 	public T[] order() {
-<<<<<<< HEAD
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented yet!");
-=======
 		T[] array = (T[]) new Comparable[this.size()];
 		order(this.root, array, 0);
 		return array;
@@ -164,15 +135,10 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		}
 		
 		return index;
->>>>>>> d48ea24bba598eeb7e71565f1d0476de2a34e31c
 	}
 
 	@Override
 	public T[] postOrder() {
-<<<<<<< HEAD
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented yet!");
-=======
 		T[] array = (T[]) new Comparable[this.size()];
 		postOrder(this.root, array, 0);
 		return array;
@@ -185,7 +151,6 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			array[index++] = node.getData();
 		}
 		return index;
->>>>>>> d48ea24bba598eeb7e71565f1d0476de2a34e31c
 	}
 
 	/**
@@ -204,9 +169,6 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		}
 		return result;
 	}
-<<<<<<< HEAD
-=======
-	
 	
 	public static void main(String[] args) {
 		BSTImpl<Integer> bst = new BSTImpl<>();
@@ -233,6 +195,5 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		System.out.println(Arrays.toString(bst.postOrder()));
 		
 	}
->>>>>>> d48ea24bba598eeb7e71565f1d0476de2a34e31c
 
 }

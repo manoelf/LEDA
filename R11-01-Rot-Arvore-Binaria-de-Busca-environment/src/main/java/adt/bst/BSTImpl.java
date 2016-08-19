@@ -23,8 +23,16 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	@Override
 	public int height() {
+		if (isEmpty()) {
+			return - 1;
+		} else {
+			return height(this.root);
+		}
+	}
+
+	private int height(BSTNode<T> root2) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return 0;
 	}
 
 	@Override
@@ -170,7 +178,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		//APENAS UM FILHO
 		} else if (oneLeaf(node)) {
 			//APENAS FILHO A ESQUERDA
-			if (!node.getRight().isEmpty()) {
+			if (node.getRight().isEmpty()) {
 				
 				//ROOT COM FILHO APENAS A ESQUERDA
 				if (node.getParent() == null) {

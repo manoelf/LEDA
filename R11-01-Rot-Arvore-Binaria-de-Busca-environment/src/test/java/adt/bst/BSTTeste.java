@@ -73,11 +73,73 @@ public class BSTTeste {
 		
 		
 		this.tree.remove(9);
-		Integer[] array = {-40, -34, 0, 2, 5, 6, 12, 23, 67, 76, 232};
+		Integer[] array = {-40, -34, 0, 2, 5, 6, 12, 23, 67, 76};
+		Assert.assertArrayEquals(array, this.tree.order());
+		
+	}
+	
+	@Test
+	public void testeRemoveRoots() {
+		fillTree();
+		Integer[] array = {-40, -34, 0, 2, 5, 6, 9, 12, 23, 67, 76, 232};
+		Assert.assertArrayEquals(array, this.tree.order());
+		
+		this.tree.remove(this.tree.getRoot().getData());
+		array = new Integer[]{-40, -34, 0, 2, 5, 9, 12, 23, 67, 76, 232};
+		Assert.assertArrayEquals(array, this.tree.order());
+		
+		
+		this.tree.remove(this.tree.getRoot().getData());
+		array = new Integer[]{-40, -34, 0, 2, 5, 12, 23, 67, 76, 232};
+		Assert.assertArrayEquals(array, this.tree.order());
+		
+		System.out.println(Arrays.toString(this.tree.order()));
+
+		this.tree.remove(this.tree.getRoot().getData());
+		array = new Integer[]{-40, -34, 0, 2, 5, 23, 67, 76, 232};
 		System.out.println(Arrays.toString(array));
 		System.out.println(Arrays.toString(this.tree.order()));
-	//	Assert.assertArrayEquals(array, this.tree.order());
+		Assert.assertArrayEquals(array, this.tree.order());
 		
+		
+		this.tree.remove(this.tree.getRoot().getData());
+		array = new Integer[]{-40, -34, 0, 2, 5, 67, 76, 232};
+		Assert.assertArrayEquals(array, this.tree.order());
+		
+		
+		this.tree.remove(this.tree.getRoot().getData());
+		array = new Integer[]{-40, -34, 0, 2, 5, 76, 232};
+		Assert.assertArrayEquals(array, this.tree.order());
+		
+		this.tree.remove(this.tree.getRoot().getData());
+		array = new Integer[]{-40, -34, 0, 2, 5, 232};
+		Assert.assertArrayEquals(array, this.tree.order());
+		
+		
+		this.tree.remove(this.tree.getRoot().getData());
+		array = new Integer[]{-40, -34, 0, 2, 5};
+		Assert.assertArrayEquals(array, this.tree.order());		
+		
+		this.tree.remove(this.tree.getRoot().getData());
+		array = new Integer[]{-40, 0, 2, 5};
+		Assert.assertArrayEquals(array, this.tree.order());
+		
+		
+		this.tree.remove(this.tree.getRoot().getData());
+		array = new Integer[]{-40, 2, 5};
+		Assert.assertArrayEquals(array, this.tree.order());
+		
+		this.tree.remove(this.tree.getRoot().getData());
+		array = new Integer[]{-40, 5};
+		Assert.assertArrayEquals(array, this.tree.order());	
+		
+		this.tree.remove(this.tree.getRoot().getData());
+		array = new Integer[]{-40};
+		Assert.assertArrayEquals(array, this.tree.order());
+		
+		this.tree.remove(this.tree.getRoot().getData());
+		array = new Integer[]{};
+		Assert.assertArrayEquals(array, this.tree.order());
 	}
 	
 }

@@ -131,7 +131,7 @@ public class StudentBSTTest {
 
 		Integer[] order = { -40, -34, 0, 2, 5, 6, 9, 12, 23, 67, 76, 232 };
 		assertArrayEquals(order, tree.order());
-
+		System.out.println(Arrays.toString(tree.order()));
 		tree.remove(6);
 		order = new Integer[] { -40, -34, 0, 2, 5, 9, 12, 23, 67, 76, 232 };
 		System.out.println(Arrays.toString(order));

@@ -146,7 +146,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	private BSTNode<T> predecessor(BSTNode<T> node, BTNode<T> parent) {
 		if (parent == null) {
 			return null;
-		} else if (!search((BSTNode<T>) parent.getRight(), node.getData()).isEmpty()) {
+		} else if (parent.getData().compareTo(node.getData()) < 0) {
 			return (BSTNode<T>) parent;
 		} else {
 			return predecessor(node, parent.getParent());
@@ -162,39 +162,59 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	}
 	
 	private void remove(BSTNode<T> node) {
+		//FOLHA
 		if (node.isLeaf()) {
-			if (node.getParent() == null) {
-				node.setData(null);
-			} else {
-				node.setData(null);
-				node.setLeft(null);
-				node.setRight(null);
-			}
+			node.setData(null);
+			node.setLeft(null);
+			node.setRight(null);
+		//APENAS UM FILHO
 		} else if (oneLeaf(node)) {
-			if (node.getLeft().isEmpty()) {
-				node.getRight().setParent(node.getParent());
-				if (node.getParent().getRight().equals(node)) {
-					node.getParent().setRight(node.getRight());
-					
+			//APENAS FILHO A ESQUERDA
+			if (!node.getRight().isEmpty()) {
+				
+				//ROOT COM FILHO APENAS A ESQUERDA
+				if (node.getParent() == null) {
+					this.root = (BSTNode<T>) node.getLeft();
+					node.getLeft().setParent(node.getParent());
+					node.setLeft(null);
+				//NAO Eh ROOT
 				} else {
-					node.getParent().setRight(node.getRight());
+					node.getLeft().setParent(node.getParent());
+					//NODE Eh ESQUERDA DO SEU PARENT
+					if (node.getParent().getLeft().equals(node)) {
+						node.getParent().setLeft(node.getRight());;
+					//NODE Eh DIREITA DE SEU PARENT
+					} else {
+						node.getParent().setRight(node.getLeft());
+					}
 				}
-
+				
+			//APENAS FILHO A DIREITA
 			} else {
-				node.getLeft().setParent(node.getParent());
-				if (node.getParent().getLeft().equals(node)) {
-					node.getParent().setLeft(node.getLeft());
-					node.getParent().setRight(node.getLeft());
+				//ROOT COM FILHO APENAS A DIREITA
+				if (node.getParent() == null) {
+					this.root = (BSTNode<T>) node.getRight();
+					node.getRight().setParent(node.getParent());
+					node.setRight(null);
+				//NAO Eh ROOT
+				} else {
+					node.getRight().setParent(node.getParent());
+					//NODE Eh ESQUERDA DE SEU PARENT
+					if (node.getParent().getLeft().equals(node)) {
+						node.getParent().setLeft(node.getRight());;
+					//NODE Eh DIREITA DE SEU PARENT
+					} else {
+						node.getParent().setRight(node.getRight());
+					}
 				}
-					
 			}
+		//NODE TEM DOIS FILHOS
 		} else {
 			BSTNode<T> sucessor = sucessor(node.getData());
 			T sucessorData = sucessor.getData();
 			sucessor.setData(node.getData());
 			node.setData(sucessorData);
 			remove(sucessor);
-		
 		}
 	}
 	

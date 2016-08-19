@@ -122,7 +122,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	private BSTNode<T> sucessor(BSTNode<T> node, BSTNode<T> parent) {
 		if (parent == null) {
 			return null;
-		} else if (!search((BSTNode<T>) parent.getLeft(), node.getData()).isEmpty()) {
+		} else if (parent.getData().compareTo(node.getData()) > 0) {
 			return (BSTNode<T>) parent;
 		} else {
 			return sucessor(node, (BSTNode<T>) parent.getParent());
@@ -156,12 +156,65 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	@Override
 	public void remove(T element) {
 		if (element != null && !isEmpty()) {
-			if (this.root.getLeft().isEmpty() && this.root.getRight().isEmpty()) {
-				this.root.setData(null);
+			BSTNode<T> node = search(element);
+			remove(node);
+		}
+	}
+	
+	private void remove(BSTNode<T> node) {
+		if (node.isLeaf()) {
+			if (node.getParent() == null) {
+				node.setData(null);
 			} else {
-				
-				
+				node.setData(null);
+				node.setLeft(null);
+				node.setRight(null);
 			}
+		} else if (oneLeaf(node)) {
+			if (node.getLeft().isEmpty()) {
+				node.getRight().setParent(node.getParent());
+				if (node.getParent().getRight().equals(node)) {
+					node.getParent().setRight(node.getRight());
+					
+				} else {
+					node.getParent().setRight(node.getRight());
+				}
+
+			} else {
+				node.getLeft().setParent(node.getParent());
+				if (node.getParent().getLeft().equals(node)) {
+					node.getParent().setLeft(node.getLeft());
+					node.getParent().setRight(node.getLeft());
+				}
+					
+			}
+		} else {
+			BSTNode<T> sucessor = sucessor(node.getData());
+			T sucessorData = sucessor.getData();
+			sucessor.setData(node.getData());
+			node.setData(sucessorData);
+			remove(sucessor);
+		
+		}
+	}
+	
+	private boolean oneLeaf(BSTNode<T> node) {
+		if (node.isEmpty()) {
+			return false;
+		} else if (node.getLeft().isEmpty() && !node.getRight().isEmpty()) {
+			return true;
+		} else if (!node.getLeft().isEmpty() && node.getRight().isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private boolean isLeaf(BSTNode<T> node) {
+		if (node.getLeft().isEmpty() && node.getRight().isEmpty()) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 

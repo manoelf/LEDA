@@ -195,7 +195,6 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
                //NODE Eh ESQUERDA DO SEU PARENT
                if (node.getParent().getLeft().equals(node)) {
                   node.getParent().setLeft(node.getLeft());
-                  ;
                   //NODE Eh DIREITA DE SEU PARENT
                } else {
                   node.getParent().setRight(node.getLeft());
@@ -215,7 +214,6 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
                //NODE Eh ESQUERDA DE SEU PARENT
                if (node.getParent().getLeft().equals(node)) {
                   node.getParent().setLeft(node.getRight());
-                  ;
                   //NODE Eh DIREITA DE SEU PARENT
                } else {
                   node.getParent().setRight(node.getRight());

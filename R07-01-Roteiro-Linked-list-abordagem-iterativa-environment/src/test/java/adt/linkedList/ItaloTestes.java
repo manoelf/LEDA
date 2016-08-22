@@ -455,8 +455,6 @@ public class ItaloTestes {
  
 		lista3.removeLast();
 		Assert.assertTrue(lista3.isEmpty());
- 
-		// Assert.fail("Not implemented!");
 	}
  
 

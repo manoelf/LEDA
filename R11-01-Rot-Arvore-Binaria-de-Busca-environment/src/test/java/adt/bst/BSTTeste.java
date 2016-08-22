@@ -181,8 +181,78 @@ public class BSTTeste {
 		this.tree.remove(new Integer(5));
 		Assert.assertEquals(null, this.tree.sucessor(this.tree.getRoot().getData()));
 
+	}
+	
+	@Test
+	public void leafsTeste() { 
+		fillTree();
+		Assert.assertEquals(5, this.tree.getLeafs());
+		Assert.assertEquals(3, this.tree.getSinglesNodes());
+		Assert.assertEquals(4, this.tree.getNodesHeight2());
+		
+		this.tree.remove(new Integer(-40));
+		Assert.assertEquals(4, this.tree.getLeafs());
+		Assert.assertEquals(4, this.tree.getSinglesNodes());
+		Assert.assertEquals(3, this.tree.getNodesHeight2());
+		
+		this.tree.remove(new Integer(67));
+		Assert.assertEquals(3, this.tree.getLeafs());
+		Assert.assertEquals(5, this.tree.getSinglesNodes());
+		Assert.assertEquals(2, this.tree.getNodesHeight2());
 
 		
+		this.tree.remove(new Integer(12));
+		Assert.assertEquals(3, this.tree.getLeafs());
+		Assert.assertEquals(4, this.tree.getSinglesNodes());
+		Assert.assertEquals(2, this.tree.getNodesHeight2());
+		
+		this.tree.remove(new Integer(9));
+		Assert.assertEquals(2, this.tree.getLeafs());
+		Assert.assertEquals(5, this.tree.getSinglesNodes());
+		Assert.assertEquals(1, this.tree.getNodesHeight2());
+		
+		this.tree.remove(new Integer(6));
+		Assert.assertEquals(2, this.tree.getLeafs());
+		Assert.assertEquals(4, this.tree.getSinglesNodes());
+		Assert.assertEquals(1, this.tree.getNodesHeight2());
+
+		
+		this.tree.remove(new Integer(232));
+		Assert.assertEquals(2, this.tree.getLeafs());
+		Assert.assertEquals(3, this.tree.getSinglesNodes());
+		Assert.assertEquals(1, this.tree.getNodesHeight2());
+
+		
+		this.tree.remove(new Integer(76));
+		Assert.assertEquals(1, this.tree.getLeafs());
+		Assert.assertEquals(4, this.tree.getSinglesNodes());
+		Assert.assertEquals(0, this.tree.getNodesHeight2());
+
+		this.tree.remove(new Integer(0));
+		Assert.assertEquals(1, this.tree.getLeafs());
+		Assert.assertEquals(3, this.tree.getSinglesNodes());
+		Assert.assertEquals(0, this.tree.getNodesHeight2());
+
+		this.tree.remove(new Integer(2));
+		Assert.assertEquals(1, this.tree.getLeafs());
+		Assert.assertEquals(2, this.tree.getSinglesNodes());
+		Assert.assertEquals(0, this.tree.getNodesHeight2());
+		
+		this.tree.remove(new Integer(5));
+		Assert.assertEquals(1, this.tree.getLeafs());
+		Assert.assertEquals(1, this.tree.getSinglesNodes());
+		Assert.assertEquals(0, this.tree.getNodesHeight2());
+
+		this.tree.remove(new Integer(-34));
+		Assert.assertEquals(1, this.tree.getLeafs());
+		Assert.assertEquals(0, this.tree.getSinglesNodes());
+		Assert.assertEquals(0, this.tree.getNodesHeight2());
+
+		this.tree.remove(new Integer(23));
+		Assert.assertEquals(0, this.tree.getLeafs());
+		Assert.assertEquals(0, this.tree.getSinglesNodes());
+		Assert.assertEquals(0, this.tree.getNodesHeight2());
+
 		
 	}
 	

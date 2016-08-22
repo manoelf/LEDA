@@ -295,9 +295,38 @@ public class BritoTeste extends StudentLinkedListTest{
 
 		Assert.assertArrayEquals(new Integer[] { 4 }, lista2.toArray());
 		lista2.removeLast();
-
+		lista2.removeFirst();
+		Assert.assertArrayEquals(new Integer[] {}, lista2.toArray());
 		Assert.assertArrayEquals(new Integer[] {}, lista2.toArray());
 		
+		lista2.insertFirst(0);
+		lista2.insertFirst(1);
+		lista2.insertFirst(2);
+		lista2.insertFirst(3);
+		lista2.insertFirst(4);
+		
+		
+		Assert.assertArrayEquals(new Integer[] { 4, 3, 2, 1, 0 }, lista2.toArray());
+
+
+		lista2.removeFirst();
+		Assert.assertArrayEquals(new Integer[] { 3, 2, 1, 0 }, lista2.toArray());
+
+		lista2.removeFirst();
+
+		Assert.assertArrayEquals(new Integer[] { 2, 1, 0 }, lista2.toArray());
+		lista2.removeFirst();
+
+		Assert.assertArrayEquals(new Integer[] {  1, 0  }, lista2.toArray());
+		lista2.removeFirst();
+
+		Assert.assertArrayEquals(new Integer[] { 0 }, lista2.toArray());
+
+		lista2.removeFirst();
+		Assert.assertArrayEquals(new Integer[] {}, lista2.toArray());
+		
+		lista2.removeFirst();
+		Assert.assertArrayEquals(new Integer[] {}, lista2.toArray());
 
 	}
 }

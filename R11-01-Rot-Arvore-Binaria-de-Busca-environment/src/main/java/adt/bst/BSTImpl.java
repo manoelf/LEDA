@@ -206,11 +206,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	}
 
 	public boolean isRoot(BTNode<T> node) {
-		if (node.isEmpty()) {
-			return false;
-		} else {
-			return node.getParent() == null;
-		}
+			return node.equals(this.root);
 	}
 
 	private void removeLeaf(BTNode<T> node) {
@@ -235,7 +231,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			}
 		}
 	}
-	
+
 	private void removeRight(BTNode<T> node) {
 		if (isRoot(node)) {
 			removeRoot(node);
@@ -264,7 +260,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			node.setRight(null);
 		}
 	}
-	
+
 	private void removeNodeTwoChild(BTNode<T> node) {
 		BSTNode<T> sucessor = sucessor(node.getData());
 		T sucessorData = sucessor.getData();

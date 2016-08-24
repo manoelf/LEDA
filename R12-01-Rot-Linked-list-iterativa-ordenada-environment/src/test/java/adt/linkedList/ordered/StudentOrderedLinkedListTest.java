@@ -1,5 +1,6 @@
 package adt.linkedList.ordered;
 
+import java.util.Arrays;
 import java.util.Comparator;
 
 import org.junit.Assert;
@@ -17,10 +18,13 @@ public class StudentOrderedLinkedListTest {
 		getImplementations();
 
 		// Lista com 3 elementos.
+		System.out.println(Arrays.toString(lista1.toArray()));
 		lista1.insert(3);
+		System.out.println(Arrays.toString(lista1.toArray()));
 		lista1.insert(2);
+		System.out.println(Arrays.toString(lista1.toArray()));		
 		lista1.insert(1);
-
+		System.out.println(Arrays.toString(lista1.toArray()));
 	}
 
 	private void getImplementations() {
@@ -73,7 +77,9 @@ public class StudentOrderedLinkedListTest {
 
 	@Test
 	public void testToArray() {
+		lista1.insert(0);
 		Assert.assertArrayEquals(new Integer[] {}, lista2.toArray());
+		System.out.println(Arrays.toString(lista1.toArray()));
 		Assert.assertArrayEquals(new Integer[] { 1, 2, 3 }, lista1.toArray());
 	}
 	

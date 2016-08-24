@@ -64,11 +64,13 @@ public class OrderedDoubleLinkedListImpl<T> extends OrderedSingleLinkedListImpl<
 					newNode.setNext(aux.getNext());
 					((DoubleLinkedListNode<T>) aux.getNext()).setPrevious(newNode);
 					aux.setNext(newNode);
+					
 				}
 
 			}
 		}
 	}
+
 
 	/**
 	 * Este método faz sentido apenas se o elemento a ser inserido pode

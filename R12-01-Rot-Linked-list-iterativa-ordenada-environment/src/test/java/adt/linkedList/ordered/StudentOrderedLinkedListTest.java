@@ -1,5 +1,6 @@
 package adt.linkedList.ordered;
 
+import java.util.Arrays;
 import java.util.Comparator;
 
 import org.junit.Assert;
@@ -26,8 +27,8 @@ public class StudentOrderedLinkedListTest {
 	private void getImplementations() {
 		// TODO O aluno deve ajustar aqui para instanciar sua implementação
 		Comparator<Integer> comparador = (element, otherElement) -> element.compareTo(otherElement);
-		lista1 = new OrderedDoubleLinkedListImpl<>();
-		lista2 = new OrderedDoubleLinkedListImpl<>();
+		lista1 = new OrderedDoubleLinkedListImpl<>(comparador);
+		lista2 = new OrderedDoubleLinkedListImpl<>(comparador);
 	}
 
 	@Test
@@ -67,6 +68,7 @@ public class StudentOrderedLinkedListTest {
 		Assert.assertEquals(3, lista1.size());
 		lista1.remove(2);
 		lista1.remove(1);
+
 		Assert.assertEquals(1, lista1.size());
 
 	}

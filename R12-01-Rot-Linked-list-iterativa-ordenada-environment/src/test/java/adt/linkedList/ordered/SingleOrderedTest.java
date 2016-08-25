@@ -2,6 +2,7 @@ package adt.linkedList.ordered;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
 import java.util.Comparator;
 
 import org.junit.Assert;
@@ -66,6 +67,7 @@ public class SingleOrderedTest {
 		Assert.assertEquals(new Integer(4), lista.search(4));
 		
 		lista.insert(6);
+		System.out.println(Arrays.toString(lista.toArray()));
 		Assert.assertArrayEquals(new Integer[] { 4, 5, 6 }, lista.toArray());
 		Assert.assertTrue(!lista.isEmpty());
 		Assert.assertEquals(3, lista.size());

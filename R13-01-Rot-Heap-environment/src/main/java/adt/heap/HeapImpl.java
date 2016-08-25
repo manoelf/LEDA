@@ -1,6 +1,5 @@
 package adt.heap;
 
-import java.lang.reflect.GenericArrayType;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -81,17 +80,25 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	 * (comparados usando o comparator) elementos na parte de cima da heap.
 	 */
 	public void heapify(int position) {
-		if (position >= 0 && size() > 0) {
-			if (heap[right(position)] != null && (getComparator().compare(heap[position], heap[right(position)])) < 0) {
-				Util.swap(this.heap, position, right(position));
-				heapify(right(position));
-			}
-			if (heap[left(position)] != null && (getComparator().compare(heap[position], heap[left(position)])) < 0) {
-				Util.swap(this.heap, position, left(position));
-				heapify(left(position));
+		if (position >= 0 && !isEmpty()) {
+			int max = getMax(left(position), right(position));
+
+			if (max >= 0 && compare(heap[position], heap[max]) < 0) {
+				Util.swap(this.heap, position, max);
+				heapify(max);
 			}
 		}
+	}
 
+	private int getMax(int indexLeft, int indexRight) {
+		if (indexLeft < size() && indexRight < size()) {
+			if (compare(heap[indexLeft], heap[indexRight]) > 0) {
+				return indexLeft;
+			} else {
+				return indexRight;
+			}
+		} 
+		return -1;
 	}
 
 	@Override
@@ -114,10 +121,9 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	@Override
 	public void buildHeap(T[] array) {
 		if (array != null & array.length > 0) {
-			this.heap = array;
-			this.index = array.length - 1;
-			
-			for (int i = array.length/2 ; i > 0 ; i--) {
+			this.heap = Arrays.copyOf(array, array.length);
+			index = array.length - 1;
+			for (int i = array.length / 2; i > 0; i--) {
 				heapify(i);
 			}
 		}
@@ -125,20 +131,37 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 
 	@Override
 	public T extractRootElement() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (isEmpty()) {
+			return null;
+		} else {
+			T element = heap[0];
+			Util.swap(heap, 0, index);
+			index--;
+			heapify(0);
+			return element;
+		}
 	}
 
 	@Override
 	public T rootElement() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (isEmpty()) {
+			return null;
+		} else {
+			return this.heap[0];
+		}
 	}
 
 	@Override
 	public T[] heapsort(T[] array) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		buildHeap(array);
+		@SuppressWarnings("unchecked")
+		T[] aux = (T[]) new Comparable[array.length];
+		
+		for (int i = 0; i < index; i++) {
+			aux[i] = extractRootElement();
+		}
+		this.heap = aux;
+		return aux;
 	}
 
 	@Override
@@ -158,4 +181,7 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 		return heap;
 	}
 
+	public int compare(T element, T otherElement) {
+		return this.comparator.compare(element, otherElement);
+	}
 }

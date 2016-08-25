@@ -20,7 +20,7 @@ public class StudentMinHeapTest {
 		// TODO Instancie seu comparator para fazer sua estrutura funcionar como
 		// uma min heap aqui. Use instanciacao anonima da interface
 		// Comparator!!!!
-		Comparator<Integer> comparator = (element, otherElement) -> element.compareTo(otherElement);
+		Comparator<Integer> comparator = (otherElement, element) -> element.compareTo(otherElement);
 		heap = new HeapImpl<Integer>(comparator);
 	}
 
@@ -104,9 +104,9 @@ public class StudentMinHeapTest {
 		original = heap.toArray();
 
 		for (int i = 0; i < original.length; i++) {
-			if (2 * i + 1 < original.length && original[i].compareTo((Integer) original[2 * i + 1]) < 0)
+			if (2 * i + 1 < original.length && original[i].compareTo((Integer) original[2 * i + 1]) > 0)
 				isHeap = false;
-			if (2 * i + 2 < original.length && original[i].compareTo((Integer) original[2 * i + 2]) < 0)
+			if (2 * i + 2 < original.length && original[i].compareTo((Integer) original[2 * i + 2]) > 0)
 				isHeap = false;
 		}
 
@@ -120,7 +120,6 @@ public class StudentMinHeapTest {
 		
 		Integer[] array = new Integer[] { 8, 10, 12 };
 		heap.buildHeap(array);
-		System.out.println(Arrays.toString(heap.toArray()));
 
 	}
 	

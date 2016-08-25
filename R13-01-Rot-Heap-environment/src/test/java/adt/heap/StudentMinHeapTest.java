@@ -37,6 +37,7 @@ public class StudentMinHeapTest {
 	@Test
 	public void testInsert() {
 		heap.insert(8);
+
 		heap.insert(12);
 		heap.insert(-2);
 		heap.insert(7);
@@ -111,5 +112,33 @@ public class StudentMinHeapTest {
 
 		assertTrue(isHeap);
 	}
-
+	
+	@Test
+	public void testHeapfy() {
+		Comparator<Integer> comparator = (element, otherElement) -> element.compareTo(otherElement);
+		HeapImpl heap = new HeapImpl<Integer>(comparator);
+		
+		heap.insert(9);
+		heap.insert(12);
+		heap.insert(10);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

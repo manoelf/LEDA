@@ -321,4 +321,33 @@ public class BSTTeste {
 		Assert.assertArrayEquals(new int[] {1, 2, 4, 7, 13}, this.tree.nodesPerLevel());
 		
 	}
+	
+	
+	
+	
+	@Test
+	public void testBST() {
+		
+		fillTree();
+		Assert.assertArrayEquals(new Integer[] {6, -34, 23, -40, 5, 9, 76, 2, 12, 67, 232, 0}, this.tree.bst());
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

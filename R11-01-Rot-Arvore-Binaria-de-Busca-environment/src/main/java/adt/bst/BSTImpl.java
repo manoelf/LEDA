@@ -206,7 +206,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	}
 
 	public boolean isRoot(BTNode<T> node) {
-			return node.equals(this.root);
+		return node.equals(this.root);
 	}
 
 	private void removeLeaf(BTNode<T> node) {
@@ -387,37 +387,48 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			return !node.getLeft().isEmpty() && !node.getRight().isEmpty();
 		}
 	}
-	
+
 	public int[] nodesPerLevel() {
 		int height = height(this.root);
 		int[] quantify = new int[height + 1];
-		getQuantify(quantify, this.root);
+		getQuantify(quantify, this.root, 0);
 		return quantify;
 	}
-	
-	private void getQuantify(int[] array, BTNode<T> node) {
+
+	private void getQuantify(int[] array, BTNode<T> node, int level) {
 		if (!node.isEmpty()) {
-			int level = getLevel(node);
-			array[level] += 1;
-			getQuantify(array, node.getLeft());
-			getQuantify(array, node.getRight());
-			
+			array[level++] += 1;
+			getQuantify(array, node.getLeft(), level);
+			getQuantify(array, node.getRight(), level);
+
 		}
 	}
-	
-	private int getLevel(BTNode<T> node) {
-		if (isEmpty()) {
-			return -1;
-		} else {
-			int level = 0;
-			BTNode<T> aux = node;
-			
-			while (aux.getParent() != null) {
-				level++;
-				aux = (BSTNode<T>) aux.getParent();
+
+	public Integer[] bst() {
+
+		BTNode[] array = new BTNode[size()];
+		
+		if (!isEmpty()) {
+			array[0] = this.root;
+			int index = 0;
+
+			for (int i = 0; i < array.length; i++) {
+				if (!array[i].isEmpty()) {
+					if (!array[i].getLeft().isEmpty())
+						array[++index] = array[i].getLeft();
+					if (!array[i].getRight().isEmpty())
+						array[++index] = array[i].getRight();
+				}
+
 			}
-			return level;
 		}
 		
+		Integer[] result = new Integer[size()];
+		
+		for (int i = 0; i < array.length; i++) {
+			result[i] = (Integer) array[i].getData();
+		}
+		return result;
 	}
+
 }

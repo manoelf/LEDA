@@ -29,9 +29,21 @@ public class AVLTreeImpl<T extends Comparable<T>>
 	}
 	
 	//AUXILIARY
-	protected void leftRotation(BSTNode<T> node){
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Not implemented yet!");
+	public void leftRotation(BSTNode<T> node){
+		//FILHO DA DIREITA VIRA NOVA RAIZ
+		node.getRight().setLeft(node);
+		node.getRight().setParent(node.getParent());
+		node.setParent(node.getRight());
+		node.setRight(new BSTNode<T>());
+		if (getRoot().equals(node)) {
+			this.setRoot((BSTNode<T>) node.getParent());
+		}
+		
+		//SE O FILHO DA DIREITA JA TEM UM FILHO DA ESQUERDA
+			//O FILHO DA ESQUERDA DO FILHO DA DIREITA VIRA FILHO
+			//DA DIREITA DO FILHO DA ESQUERDA 
+		//RAIZ ORIGINAL VIRA FILHO DA ESQUERDA DA NOVA RAIZ
+	
 	}
 	
 	//AUXILIARY

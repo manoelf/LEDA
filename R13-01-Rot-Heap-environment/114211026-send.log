@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<head/><log>
+<record>
+  <date>2016-08-25T21:59:43.008-0300</date>
+  <logger>JOSE MANOEL DOS SANTOS FERREIRA</logger>
+  <level>FINE</level>
+  <message>File 114211026-JOSE MANOEL DOS SANTOS FERREIRA.zip was received. It was sent by JOSE MANOEL DOS SANTOS FERREIRA from IP 127.0.1.1</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2016-08-25T22:06:08.741-0300</date>
+  <logger>JOSE MANOEL DOS SANTOS FERREIRA</logger>
+  <level>FINE</level>
+  <message>File 114211026-JOSE MANOEL DOS SANTOS FERREIRA.zip was received. It was sent by JOSE MANOEL DOS SANTOS FERREIRA from IP 127.0.1.1</message>
+</record>

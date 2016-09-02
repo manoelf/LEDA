@@ -81,7 +81,10 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	 */
 	public void heapify(int position) {
 		if (position >= 0 && !isEmpty()) {
-			int max = getMax(left(position), right(position));
+			int leftIndex = left(position);
+			int rightIndex = right(position);
+			int max;
+			max = getMax(leftIndex, rightIndex);
 
 			if (max >= 0 && compare(heap[position], heap[max]) < 0) {
 				Util.swap(this.heap, position, max);
@@ -91,13 +94,17 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	}
 
 	private int getMax(int indexLeft, int indexRight) {
-		if (indexLeft < size() && indexRight < size()) {
+		if (indexLeft > index) {
+			return -1;
+		} else if (indexRight > index) {
+			return indexLeft;
+		} else if (indexLeft < size() && indexRight < size()) {
 			if (compare(heap[indexLeft], heap[indexRight]) > 0) {
 				return indexLeft;
 			} else {
 				return indexRight;
 			}
-		} 
+		}
 		return -1;
 	}
 
@@ -111,7 +118,7 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 		this.heap[++index] = element;
 		int i = index;
 
-		while (i >= 1 && getComparator().compare(heap[i], heap[parent(i)]) > 0) {
+		while (i >= 1 && compare(heap[i], heap[parent(i)]) > 0) {
 			Util.swap(this.heap, i, parent(i));
 			i = parent(i);
 		}
@@ -123,7 +130,7 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 		if (array != null & array.length > 0) {
 			this.heap = Arrays.copyOf(array, array.length);
 			index = array.length - 1;
-			for (int i = array.length / 2; i > 0; i--) {
+			for (int i = array.length / 2; i >= 0; i--) {
 				heapify(i);
 			}
 		}
@@ -153,14 +160,24 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 
 	@Override
 	public T[] heapsort(T[] array) {
+		Comparator<T> comparatorTemp = this.comparator;
+		
+		this.comparator = new Comparator<T>() {
+
+			@Override
+			public int compare(T o1, T o2) {
+				return o1.compareTo(o2);
+			}
+		};
+		
 		buildHeap(array);
 		@SuppressWarnings("unchecked")
 		T[] aux = (T[]) new Comparable[array.length];
-		
-		for (int i = 0; i < index; i++) {
+
+		for (int i = index; i >= 0; i--) {
 			aux[i] = extractRootElement();
 		}
-		this.heap = aux;
+		this.comparator = comparatorTemp;
 		return aux;
 	}
 

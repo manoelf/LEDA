@@ -4,17 +4,20 @@ import adt.bt.BTNode;
 
 public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
-	protected  BSTNode<T> root;
-	
-	
+	protected BSTNode<T> root;
+
 	public BSTImpl() {
 		root = new BSTNode<T>();
 	}
 
-	public BSTNode<T> getRoot(){
+	public BSTNode<T> getRoot() {
 		return this.root;
 	}
 	
+	public void setRoot(BSTNode<T> newRoot) {
+		this.root = newRoot;
+	}
+
 	@Override
 	public boolean isEmpty() {
 		return root.isEmpty();
@@ -273,9 +276,10 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	public boolean isLeaf(BSTNode<T> node) {
 		return node != null && node.getData() != null && node.getLeft().isEmpty() && node.getRight().isEmpty();
 	}
-	
+
 	@Override
 	public T[] preOrder() {
+		@SuppressWarnings("unchecked")
 		T[] array = (T[]) new Comparable[this.size()];
 		preOrder(this.root, array, 0);
 		return array;
@@ -292,6 +296,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	@Override
 	public T[] order() {
+		@SuppressWarnings("unchecked")
 		T[] array = (T[]) new Comparable[this.size()];
 		order(this.root, array, 0);
 		return array;
@@ -308,6 +313,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	@Override
 	public T[] postOrder() {
+		@SuppressWarnings("unchecked")
 		T[] array = (T[]) new Comparable[this.size()];
 		postOrder(this.root, array, 0);
 		return array;
@@ -323,18 +329,19 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	}
 
 	/**
-	 * This method is already implemented using recursion. You must understand how it work and 
-	 * use similar idea with the other methods. 
+	 * This method is already implemented using recursion. You must understand
+	 * how it work and use similar idea with the other methods.
 	 */
 	@Override
 	public int size() {
 		return size(root);
 	}
-	private int size(BSTNode<T> node){
+
+	private int size(BSTNode<T> node) {
 		int result = 0;
-		//base case means doing nothing (return 0)
-		if(!node.isEmpty()){ //indusctive case
-			result = 1 + size((BSTNode<T>)node.getLeft()) + size((BSTNode<T>)node.getRight());
+		// base case means doing nothing (return 0)
+		if (!node.isEmpty()) { // indusctive case
+			result = 1 + size((BSTNode<T>) node.getLeft()) + size((BSTNode<T>) node.getRight());
 		}
 		return result;
 	}

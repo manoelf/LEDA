@@ -391,15 +391,15 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	public int[] nodesPerLevel() {
 		int height = height(this.root);
 		int[] quantify = new int[height + 1];
-		getQuantify(quantify, this.root, 0);
+		nodesPerLevel(quantify, this.root, 0);
 		return quantify;
 	}
 
-	private void getQuantify(int[] array, BTNode<T> node, int level) {
+	private void nodesPerLevel(int[] array, BTNode<T> node, int level) {
 		if (!node.isEmpty()) {
 			array[level++] += 1;
-			getQuantify(array, node.getLeft(), level);
-			getQuantify(array, node.getRight(), level);
+			nodesPerLevel(array, node.getLeft(), level);
+			nodesPerLevel(array, node.getRight(), level);
 
 		}
 	}

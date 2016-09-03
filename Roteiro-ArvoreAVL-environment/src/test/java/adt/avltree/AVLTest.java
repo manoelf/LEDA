@@ -2,42 +2,58 @@ package adt.avltree;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
+import adt.bst.BSTImpl;
 import adt.bst.BSTNode;
 
 public class AVLTest {
-
-	private AVLTreeImpl<Integer> tree = new AVLTreeImpl<>();
-	private BSTNode<Integer> NIL = new BSTNode<Integer>();
-
-	@Test
-	public void test() {
-		assertTrue(tree.isEmpty());
-		assertTrue(tree.getRoot().isEmpty());
-		
-		
-		tree.insert(5);
-		assertEquals(new Integer(5), tree.getRoot().getData());
-		assertTrue(tree.getRoot().getLeft().isEmpty());
-
-		
-		tree.insert(8);
-		assertEquals(new Integer(8), tree.getRoot().getRight().getData());
-		assertTrue(tree.getRoot().getRight().getLeft().isEmpty());
-		assertTrue(tree.getRoot().getLeft().isEmpty());
-		
-
-		tree.insert(10);
-		assertEquals(new Integer(10), tree.getRoot().getRight().getRight().getData());
-		assertTrue(tree.getRoot().getRight().getRight().getLeft().isEmpty());
-		assertEquals(new Integer(8), tree.getRoot().getRight().getData());
-
-		
-		tree.leftRotation(tree.getRoot());
-		assertEquals(new Integer(5), tree.getRoot().getLeft().getData());
-		assertEquals(new Integer(10),tree.getRoot().getRight().getData());
-		
+	
+	private AVLTree<Integer> tree;
+	private BSTImpl<Integer> bst; 
+	
+	
+	@Before
+	public void setUp() {
+		this.bst = new BSTImpl<>();
 	}
+	
+	@Test
+	public void testBST() {
+		
+		assertTrue(bst.isEmpty());
+		
+		bst.insert(new Integer(10));
+		assertFalse(bst.isEmpty());
+		
+		assertEquals(new Integer(10), bst.getRoot().getData());
+		assertTrue(bst.getRoot().getLeft().isEmpty()); 
+		assertTrue(bst.getRoot().getRight().isEmpty());
+		assertEquals(new Integer(10), bst.getRoot().getLeft().getParent().getData()); 
+		assertEquals(new Integer(10), bst.getRoot().getRight().getParent().getData()); 
+		assertEquals(new Integer(10), bst.search(new Integer(10)).getData());
 
+		
+		bst.insert(new Integer(20));
+		
+		assertEquals(new Integer(20), bst.getRoot().getRight().getData());
+		assertEquals(1, bst.height());
+		assertEquals(new Integer(20), bst.search(new Integer(20)).getData());
+		
+		assertEquals(null, bst.search(new Integer(30)));
+		
+		bst.insert(new Integer(30));
+		bst.insert(new Integer(40));
+		bst.insert(new Integer(50));
+		bst.insert(new Integer(60));
+
+		assertEquals(5, bst.height());
+		assertEquals(new Integer(60), bst.maximum().getData());
+		assertEquals(new Integer(10), bst.minimum().getData());
+		
+	
+		
+	
+	}
 }

@@ -1,6 +1,8 @@
 package adt.avltree;
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -104,6 +106,8 @@ public class StudentAVLTest {
 		fillTree(); 
 
 		Integer[] preOrder = new Integer[] {3,1,0,2,7,5,4,6,8,9};
+		System.out.println(Arrays.toString(tree.preOrder()));
+		System.out.println(Arrays.toString(preOrder));
 		assertArrayEquals(preOrder, tree.preOrder());
 		assertEquals(3, tree.height());
 

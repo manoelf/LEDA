@@ -153,7 +153,6 @@ public class GersonTeste {
 
 
     @Test
-
     public void parentTest() {
 
         fillTree();
@@ -237,7 +236,6 @@ public class GersonTeste {
 
 
     @Test
-
     public void removedParentTest() {
 
         fillTree();
@@ -486,7 +484,6 @@ public class GersonTeste {
 
 
     @Test
-
     public void predecessorSucessorTest() {
 
         fillTree();

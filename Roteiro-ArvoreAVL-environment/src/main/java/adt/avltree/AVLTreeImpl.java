@@ -150,7 +150,7 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 					// ROTACAO A ESQUERDA
 					leftRotation(node);
 				}
-			} else {
+			} else if (balance < -1) {
 				if (calculateBalance((BSTNode<T>) node.getLeft()) > 0) {
 					// ROTACAO DUPLA A DIREITA
 					leftRotation((BSTNode<T>) node.getLeft());
@@ -179,15 +179,22 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 	protected void leftRotation(BSTNode<T> node) {
 		if (node != null && !node.isEmpty()) {
 			BSTNode<T> newRoot = (BSTNode<T>) node.getRight();
+			if (node.getParent() != null) {
+				if (node.getParent().getLeft().equals(node)) {
+					node.getParent().setLeft(newRoot);
+				} else {
+					node.getParent().setRight(newRoot);
+				}
+			}
 			newRoot.setParent(node.getParent());
 			node.setRight(newRoot.getLeft());
 			node.getRight().setParent(node);
 			newRoot.setLeft(node);
 			newRoot.getLeft().setParent(newRoot);
 		
-			
-			node = newRoot;
-			
+			if (newRoot.getLeft().equals(this.root)) {
+				this.root = newRoot;
+			}
 
 		}
 	}
@@ -196,13 +203,22 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 	protected void rightRotation(BSTNode<T> node) {
 		if (node != null && !node.isEmpty()) {
 			BSTNode<T> newRoot = (BSTNode<T>) node.getLeft();
+			if (node.getParent() != null) {
+				if (node.getParent().getLeft().equals(node)) {
+					node.getParent().setLeft(newRoot);
+				} else {
+					node.getParent().setRight(newRoot);
+				}
+			}
 			newRoot.setParent(node.getParent());
 			node.setLeft(newRoot.getRight());
 			node.getLeft().setParent(node);
 			newRoot.setRight(node);
 			newRoot.getRight().setParent(newRoot);
 			
-			node = newRoot;
+			if (newRoot.getRight().equals(node)) {
+				this.root = newRoot;
+			}
 		}
 	}
 

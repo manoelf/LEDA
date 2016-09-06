@@ -69,4 +69,51 @@ public class StudentAVLTest2 {
 		assertEquals(NIL, avl.getRoot());
 		assertTrue(avl.isEmpty());
 	}
+
+	private void fillTree() {
+
+		for (int i = 1; i < 11; i++) {
+			avl.insert(i);
+		}
+	}
+	
+	@Test
+	public void testRemove2() {
+		fillTree();
+		avl.remove(new Integer(6));
+
+		assertEquals(new Integer(8), avl.search(7).getParent().getData());// parent
+		assertEquals(new Integer(7), avl.search(5).getParent().getData());// parent
+		assertEquals(new Integer(7), avl.search(8).getLeft().getData());// leftNode
+
+		avl.remove(new Integer(7));
+		assertEquals(new Integer(8), avl.search(5).getParent().getData());// parent
+		assertEquals(new Integer(5), avl.search(8).getLeft().getData());// leftNode
+
+		avl.remove(new Integer(5));
+		assertEquals(new Integer(9), avl.search(8).getParent().getData());// parent
+		assertEquals(new Integer(4), avl.search(9).getParent().getData());// parent
+		assertEquals(new Integer(8), avl.search(9).getLeft().getData());// leftNode
+		assertEquals(new Integer(10), avl.search(9).getRight().getData());// rightNode
+
+		avl.remove(new Integer(3));
+		avl.remove(new Integer(1));
+		avl.remove(new Integer(2));
+
+		assertEquals(new Integer(4), avl.search(8).getParent().getData());// parent
+		assertEquals(new Integer(9), avl.search(4).getParent().getData());// parent
+		assertEquals(null, avl.search(9).getParent());// parent
+		assertEquals(new Integer(9), avl.search(10).getParent().getData());// parent
+
+		assertEquals(null, avl.search(8).getLeft().getData());// leftNode
+		assertEquals(null, avl.search(4).getLeft().getData());// leftNode
+		assertEquals(new Integer(4), avl.search(9).getLeft().getData());// leftNode
+		assertEquals(null, avl.search(10).getLeft().getData());// leftNode
+
+		assertEquals(null, avl.search(8).getRight().getData());// rightNode
+		assertEquals(new Integer(8), avl.search(4).getRight().getData());// rightNode
+		assertEquals(new Integer(10), avl.search(9).getRight().getData());// rightNode
+		assertEquals(null, avl.search(10).getRight().getData());// rightNode
+
+	}
 }

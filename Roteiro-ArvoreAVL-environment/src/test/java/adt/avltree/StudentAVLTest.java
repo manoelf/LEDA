@@ -101,11 +101,12 @@ public class StudentAVLTest {
 		}
 	}
 
-	//@Test
+	@Test
 	public void testHeight() {
 		fillTree(); 
 
-		Integer[] preOrder = new Integer[] {3,1,2,7,5,4,6,8,9,10,11};
+		Integer[] preOrder = new Integer[] {3,1,2,7,5,4,6,8,9,10};
+		System.out.println(Arrays.toString(tree.preOrder()));
 		assertArrayEquals(preOrder, tree.preOrder());
 		assertEquals(3, tree.height());
 

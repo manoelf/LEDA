@@ -4,8 +4,6 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -117,9 +115,6 @@ public class StudentBSTTest {
 		tree.insert(72);
 		tree.insert(67);
 
-		System.out.println(Arrays.toString(tree.preOrder()));
-		System.out.println(Arrays.toString(tree.order()));
-		System.out.println(Arrays.toString(tree.postOrder()));
 
 		fillTree();
 	}

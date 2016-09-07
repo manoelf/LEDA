@@ -178,12 +178,4 @@ public class AVLTeste3 {
 		assertEquals(new Integer(4), tree.search(4).getData());
 	}
 	
-	private void printTree() {
-		System.out.print("{ ");
-		for (Comparable<Integer> e : tree.preOrder()) {
-			System.out.print(e + ",");
-		}
-		System.out.println(" }");
-	}
-	
 }

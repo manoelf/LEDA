@@ -2,6 +2,7 @@ package adt.avltree;
 
 import adt.bst.BSTImpl;
 import adt.bst.BSTNode;
+import adt.bt.Util;
 
 /**
  * 
@@ -34,8 +35,8 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements
 
 	// AUXILIARY
 	protected int calculateBalance(BSTNode<T> node) {
-		int leftHeight = height(node.getLeft());
-		int rightHeight = height(node.getRight());
+		int leftHeight = height((BSTNode<T>) node.getLeft());
+		int rightHeight = height((BSTNode<T>) node.getRight());
 		return rightHeight - leftHeight;
 	}
 
@@ -81,19 +82,8 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements
 	// AUXILIARY
 	protected void leftRotation(BSTNode<T> node) {
 		if (node != null && !node.isEmpty()) {
-			BSTNode<T> newRoot = (BSTNode<T>) node.getRight();
-			if (node.getParent() != null) {
-				if (node.getParent().getLeft().equals(node)) {
-					node.getParent().setLeft(newRoot);
-				} else {
-					node.getParent().setRight(newRoot);
-				}
-			}
-			newRoot.setParent(node.getParent());
-			node.setRight(newRoot.getLeft());
-			node.getRight().setParent(node);
-			newRoot.setLeft(node);
-			newRoot.getLeft().setParent(newRoot);
+
+			BSTNode<T> newRoot = Util.leftRotation(node);
 		
 			if (node.equals(this.root)) {
 				this.root = newRoot;
@@ -105,19 +95,8 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements
 	// AUXILIARY
 	protected void rightRotation(BSTNode<T> node) {
 		if (node != null && !node.isEmpty()) {
-			BSTNode<T> newRoot = (BSTNode<T>) node.getLeft();
-			if (node.getParent() != null) {
-				if (node.getParent().getLeft().equals(node)) {
-					node.getParent().setLeft(newRoot);
-				} else {
-					node.getParent().setRight(newRoot);
-				}
-			}
-			newRoot.setParent(node.getParent());
-			node.setLeft(newRoot.getRight());
-			node.getLeft().setParent(node);
-			newRoot.setRight(node);
-			newRoot.getRight().setParent(newRoot);
+	
+			BSTNode<T> newRoot = Util.rightRotation(node);
 			
 			if (node.equals(this.root)) {
 				this.root = newRoot;

@@ -441,9 +441,6 @@ public class AVLTeste1 {
  
         myAVL.remove(13);
  
-        System.out.println(Arrays.toString(myAVL.preOrder()));
-        System.out.println(Arrays.toString(myAVL.order()));
-        System.out.println(Arrays.toString(myAVL.postOrder()));
  
         assertArrayEquals(preOrder, myAVL.preOrder());
         assertArrayEquals(order, myAVL.order());

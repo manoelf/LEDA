@@ -58,7 +58,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 				return search((BSTNode<T>) node.getRight(), element);
 			}
 		}
-		return new BSTNode<>();
+		return node;
 	}
 
 	@Override

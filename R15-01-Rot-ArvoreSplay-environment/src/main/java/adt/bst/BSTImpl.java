@@ -169,7 +169,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	@Override
 	public void remove(T element) {
-		BSTNode<T> node = search(element);
+		BSTNode<T> node = this.search(element);
 		if (element != null && !node.isEmpty()) {
 			remove(node);
 		}

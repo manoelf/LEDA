@@ -10,7 +10,7 @@ import adt.bt.Util;
 public class SplayTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements SplayTree<T> {
 
 	private void splay(BSTNode<T> node) {
-		if (node != null && node.getParent() != null) {
+		if (node != null && node.getParent() != null && !isRoot(node)) {
 			BSTNode<T> parent = (BSTNode<T>) node.getParent();
 			// ZIG
 			// Caso 1 (terminal): se p(x) é raiz faz apenas uma rotacao
@@ -39,39 +39,39 @@ public class SplayTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implement
 			} else {
 				if (isLeftChildren(node)) {
 					Util.rightRotation(parent);
-					Util.leftRotation((BSTNode<T>) parent.getParent());
+					Util.leftRotation(parent);
 				} else {
 					Util.leftRotation(parent);
-					Util.rightRotation((BSTNode<T>) parent.getParent());
+					Util.rightRotation( parent);
 				}
 
 			}
-
+			splay(node);
 		}
 
 	}
 
-	private boolean isLeftChildren(BTNode<T> btNode) {
-		BSTNode<T> parent = (BSTNode<T>) btNode.getParent();
-		return parent.getLeft().equals(btNode);
+	private boolean isLeftChildren(BTNode<T> node) {
+		BSTNode<T> parent = (BSTNode<T>) node.getParent();
+		if (parent != null)
+			return parent.getLeft().equals(node);
+		else 
+			return false;
 	}
 
 	private boolean isRightChildren(BSTNode<T> node) {
 		BSTNode<T> parent = (BSTNode<T>) node.getParent();
-		return parent.getRight().equals(node);
+		if (parent != null)
+			return parent.getRight().equals(node);
+		else 
+			return false;
 	}
 
 	@Override
 	public BSTNode<T> search(T element) {
 		BSTNode<T> node = super.search(element);
 		if (node.isEmpty() && node.getParent() != null) {
-			node.setData(element);
-			BSTNode<T> newNode = super.predecessor(element);
-			if (newNode == null) {
-				newNode = super.sucessor(element);
-			}
-			node.setData(null);
-			splay(newNode);
+			splay((BSTNode<T>) node.getParent());
 		} else {
 			splay(node);
 		}
@@ -87,5 +87,15 @@ public class SplayTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implement
 			splay(node);
 		}
 		
+	}
+	
+	@Override
+	public void remove(T element) {
+		BSTNode<T> node = super.search(element);
+		if (node != null && node.isEmpty()) {
+			splay((BSTNode<T>) node.getParent());
+		} else {
+			splay(node);
+		}
 	}
 }

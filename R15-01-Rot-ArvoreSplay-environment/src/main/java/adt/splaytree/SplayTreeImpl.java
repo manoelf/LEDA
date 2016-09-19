@@ -30,10 +30,10 @@ public class SplayTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implement
 			} else {
 				if (isLeftChildren(node)) {
 					rightRotation(parent);
-					leftRotation((BSTNode<T>) parent.getParent());
+					leftRotation((BSTNode<T>) node.getParent());
 				} else {
 					leftRotation(parent);
-					rightRotation((BSTNode<T>) parent.getParent());
+					rightRotation((BSTNode<T>) node.getParent());
 				}
 
 			}
@@ -106,7 +106,8 @@ public class SplayTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implement
 	@Override
 	public void remove(T element) {
 		BSTNode<T> node = super.search(element);
-		super.remove(node);
 		splay((BSTNode<T>) node.getParent());
+		if (!node.isEmpty())
+			super.remove(node);
 	}
 }

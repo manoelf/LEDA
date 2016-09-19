@@ -41,7 +41,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	@Override
 	public BSTNode<T> search(T element) {
-		if (isEmpty()) {
+		if (isEmpty() ||  element == null) {
 			return new BSTNode<T>();
 		} else {
 			return search(this.root, element);
@@ -132,7 +132,18 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			return null;
 		}
 	}
-
+	private BSTNode<T> sucessor(BSTNode<T> node) {
+		if (!node.isEmpty()) {
+			if (!node.getRight().isEmpty()) {
+				return minimum(node.getRight());
+			} else {
+				return sucessor(node, (BSTNode<T>) node.getParent());
+			}
+		} else {
+			return null;
+		}
+	}
+ 
 	private BSTNode<T> sucessor(BSTNode<T> node, BSTNode<T> parent) {
 		if (parent == null) {
 			return null;
@@ -268,7 +279,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	}
 
 	private BTNode<T> removeNodeTwoChild(BTNode<T> node) {
-		BSTNode<T> sucessor = sucessor(node.getData());
+		BSTNode<T> sucessor = sucessor((BSTNode<T>)node);
 		T sucessorData = sucessor.getData();
 		sucessor.setData(node.getData());
 		node.setData(sucessorData);

@@ -1,5 +1,7 @@
 package adt.btree;
 
+import java.util.LinkedList;
+
 public class BTreeImpl<T extends Comparable<T>> implements BTree<T> {
 
 	protected BNode<T> root;
@@ -26,14 +28,35 @@ public class BTreeImpl<T extends Comparable<T>> implements BTree<T> {
 	}
 
 	private int height(BNode<T> node) {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not Implemented yet!");
+		if (!node.isEmpty()) {
+			return 1 + height(node.children.get(0));
+		}
+		return 0;
 	}
 
 	@Override
 	public BNode<T>[] depthLeftOrder() {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not Implemented yet!");
+		@SuppressWarnings("unchecked")
+		BNode<T>[] array = new BNode[size()];
+		depthLeftOrder(getRoot(), array, 0);
+		return array;
+	}
+
+	private void depthLeftOrder(BNode<T> node, BNode<T>[] array, int i) {
+		if (!node.isEmpty()) {
+			array[i++] = node;
+			int index = 0;
+			while (index < node.size()) {
+				array[i + index] = node.children.get(index);
+				index++;
+			}
+			i = i + index;
+			index = 0;
+			while (index < node.size()) {
+				depthLeftOrder(node.children.get(index), array, i);
+				index++;
+			}
+		}
 	}
 
 	@Override
@@ -44,8 +67,28 @@ public class BTreeImpl<T extends Comparable<T>> implements BTree<T> {
 
 	@Override
 	public BNodePosition<T> search(T element) {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not Implemented yet!");
+		if (element != null) {
+			return search(this.root, element);
+		}
+
+		return new BNodePosition<>();
+	}
+
+	private BNodePosition<T> search(BNode<T> node, T element) {
+		int i = 0;
+		T value = node.getElementAt(i);
+		while (i < node.size() && element.compareTo(value) > 0) {
+			i++;
+			value = node.getElementAt(i);
+		}
+
+		if (value.equals(element)) {
+			return new BNodePosition<>(node, i);
+		} else if (i < node.size()) {
+			return search(node.getChildren().get(i), element);
+		} else {
+			return new BNodePosition<>();
+		}
 	}
 
 	@Override

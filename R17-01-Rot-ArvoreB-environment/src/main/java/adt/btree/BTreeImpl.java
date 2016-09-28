@@ -1,6 +1,6 @@
 package adt.btree;
 
-import java.util.LinkedList;
+import java.util.Collections;
 
 public class BTreeImpl<T extends Comparable<T>> implements BTree<T> {
 
@@ -28,7 +28,7 @@ public class BTreeImpl<T extends Comparable<T>> implements BTree<T> {
 	}
 
 	private int height(BNode<T> node) {
-		if (!node.isEmpty()) {
+		if (!node.isEmpty() && node.children.get(0) != null) {
 			return 1 + height(node.children.get(0));
 		}
 		return 0;
@@ -43,7 +43,7 @@ public class BTreeImpl<T extends Comparable<T>> implements BTree<T> {
 	}
 
 	private void depthLeftOrder(BNode<T> node, BNode<T>[] array, int i) {
-		if (!node.isEmpty()) {
+		if (node != null && !node.isEmpty()) {
 			array[i++] = node;
 			int index = 0;
 			while (index < node.size()) {
@@ -61,8 +61,20 @@ public class BTreeImpl<T extends Comparable<T>> implements BTree<T> {
 
 	@Override
 	public int size() {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not Implemented yet!");
+		return size(this.root);
+
+	}
+
+	private int size(BNode<T> node) {
+		if (!node.isEmpty()) {
+			if (node.isLeaf()) {
+				return node.size();
+			}
+			for (BNode<T> element : node.children) {
+				return node.size() + size(element);
+			}
+		}
+		return 0;
 	}
 
 	@Override
@@ -75,32 +87,97 @@ public class BTreeImpl<T extends Comparable<T>> implements BTree<T> {
 	}
 
 	private BNodePosition<T> search(BNode<T> node, T element) {
-		int i = 0;
-		T value = node.getElementAt(i);
-		while (i < node.size() && element.compareTo(value) > 0) {
-			i++;
-			value = node.getElementAt(i);
-		}
+		if (!node.isEmpty()) {
+			int i = 0;
+			T value = node.getElementAt(i);
+			while (i < node.size() && element.compareTo(value) > 0) {
+				i++;
+				value = node.getElementAt(i);
+			}
 
-		if (value.equals(element)) {
-			return new BNodePosition<>(node, i);
-		} else if (i < node.size()) {
-			return search(node.getChildren().get(i), element);
-		} else {
-			return new BNodePosition<>();
+			if (value.equals(element)) {
+				return new BNodePosition<>(node, i);
+			} else if (i < node.size()) {
+				return search(node.getChildren().get(i), element);
+			} else {
+				return new BNodePosition<>();
+			}
 		}
+		return new BNodePosition<>();
 	}
 
 	@Override
 	public void insert(T element) {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not Implemented yet!");
+		if (element != null) {
+			BNode<T> node = search(element).node;
+			if (node != null) {
+				insert(node, element);
+			}
+		}
+	}
 
+	private void insert(BNode<T> node, T element) {
+		node.addElement(element);
+		Collections.sort(node.getElements());
+		if (node.isFull()) {
+			split(node);
+		}
 	}
 
 	private void split(BNode<T> node) {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not Implemented yet!");
+		if (node.equals(root)) {
+			BNode<T> newRoot = new BNode<>(node.getMaxKeys() + 1);
+			newRoot.setParent(node.getParent());
+
+			newRoot.addElement(getMedianElement(node));
+			newRoot.addChild(0, divideFirstPart(node));
+			newRoot.addChild(1, divideSecondPart(node));
+			this.root = newRoot;
+			
+		} else {
+			T middle = getMedianElement(node);
+			BNode<T> parent = node.getParent();
+			insert(parent, middle);
+
+			int position = parent.elements.indexOf(middle);
+			parent.addChild(position, divideFirstPart(node));
+			parent.addChild(position + 1, divideSecondPart(node));
+			node = divideFirstPart(node);
+		}
+
+	}
+
+	private T getMedianElement(BNode<T> node) {
+		return node.getElementAt(node.size() / 2);
+	}
+
+	private BNode<T> divideFirstPart(BNode<T> node) {
+		BNode<T> newNode = new BNode<>(node.getMaxKeys() + 1);
+		newNode.setParent(node.getParent());
+		for (int i = 0; i < (node.size() / 2) - 1; i++) {
+			newNode.addElement(node.getElementAt(i));
+		}
+		if (!node.isLeaf()) {
+			for (int i = 0; i < node.getChildren().size() / 2; i++) {
+				newNode.addChild(i, node.getChildren().get(i));
+			}
+		}
+
+		return newNode;
+	}
+
+	private BNode<T> divideSecondPart(BNode<T> node) {
+		BNode<T> newNode = new BNode<>(node.getMaxKeys() + 1);
+		newNode.setParent(node.getParent());
+		for (int i = (node.size() / 2) + 1;  i < node.size(); i++) {
+			newNode.addElement(node.getElementAt(i));
+		}
+		if (!node.isLeaf())
+			for (int i = (node.getChildren().size() / 2) + 1; i < node.getChildren().size(); i++) {
+				newNode.addChild(i, node.getChildren().get(i));
+			}
+
+		return newNode;
 	}
 
 	private void promote(BNode<T> node) {

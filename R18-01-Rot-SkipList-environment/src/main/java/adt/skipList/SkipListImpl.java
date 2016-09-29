@@ -1,5 +1,7 @@
 package adt.skipList;
 
+import sun.net.NetworkServer;
+
 public class SkipListImpl<T> implements SkipList<T> {
 
 	protected SkipListNode<T> root;
@@ -35,8 +37,15 @@ public class SkipListImpl<T> implements SkipList<T> {
 				this.root.forward[i] = this.NIL.forward[i];
 			}
 		} else {
-			this.root.forward[0] = this.NIL.forward[0];
+			this.root.forward[0] = this.NIL;
 		}
+	}
+
+	private void updateHeight(int newHeight) {
+		for (int i = this.height; i < newHeight; i++) {
+			this.root.forward[i] = this.NIL;
+		}
+		this.height = newHeight;
 	}
 
 	/**
@@ -55,31 +64,84 @@ public class SkipListImpl<T> implements SkipList<T> {
 	@Override
 	public void insert(int key, T newValue, int height) {
 
-		if (height <= maxHeight && newValue != null) {
-			@SuppressWarnings("unchecked")
-			SkipListNode<T>[] updates = new SkipListNode[maxHeight];
-			SkipListNode<T> aux = this.root.getForward(maxHeight);
+		if (height >= 1 && height <= maxHeight && newValue != null) {
+			updateHeight(height);
 
-			for (int i = maxHeight; i >= 0; i--) {
-				while (aux.getKey() < key) {
+			@SuppressWarnings("unchecked")
+			// Array com as referencias para serem atualizadas
+			SkipListNode<T>[] updates = new SkipListNode[this.height];
+
+			// skip auxiliar para poder andar na estrutura
+			SkipListNode<T> aux = this.root;
+
+			// Percorrer a estrutura ate encontrar o local aser inserido
+			for (int i = this.height; i >= 0; i--) {
+				while (aux.forward[i].getKey() < key) {
 					aux = aux.getForward(i);
 				}
 				updates[i] = aux;
 			}
-			
-			SkipListNode<T> newSkip = new SkipListNode<T>(key, height, newValue);
-			for (int i = 0; i < height; i++) {
-				newSkip.getForward()[i] = updates[i];
-				updates[i].forward[i] = newSkip;
+
+			// Referencia do skipNode que ficara a frente do node inserido
+			aux = aux.getForward()[0];
+
+			// Caso as chaves sejam iguais, sera mudado apenas o valor
+			if (aux.getKey() == key) {
+				aux.setValue(newValue);
+			} else {
+				// Skipnode a ser inserido
+				SkipListNode<T> newSkip = new SkipListNode<T>(key, height, newValue);
+
+				// Caso a altura do no a ser inserido for menor do que seu
+				// proximo
+				if (height < aux.getHeight()) {
+
+					for (int i = 0; i < height; i++) {
+						updates[i].forward[i] = newSkip;
+						newSkip.forward[i] = aux;
+					}
+
+					// Caso contrario, teremos que, em algum momento, pegar o
+					// proximo node para que as refrencias do no que esta sendo
+					// inserido sejam atualizada
+				} else {
+
+					for (int i = 0; i < height; i++) {
+						// Quando a altura do proximo eh menor, pego o do
+						// proximo dele para atualizar todos os forwrd do no
+						// inserido
+						if (i > aux.getHeight()) {
+							aux = aux.forward[0];
+						}
+						updates[i].forward[i] = newSkip;
+						newSkip.forward[i] = aux;
+					}
+				}
 			}
 		}
 	}
 
 	@Override
 	public void remove(int key) {
-		SkipListNode<T> aux = root.getForward(this.height);
-		
+		SkipListNode<T> aux = root;
+		SkipListNode<T>[] updates = new SkipListNode[this.height];
+
 		for (int i = this.height; i <= 0; i--) {
+			while (aux.forward[i].getKey() < key) {
+				aux = aux.forward[i];
+			}
+			updates[i] = aux;
+		}
+
+		aux = aux.forward[0];
+
+		if (aux.getKey() == key) {
+			for (int i = 0; i < height; i++) {
+				if (updates[i].forward[i] != aux) {
+					break;
+				}
+				updates[i].forward[i] = aux.forward[i];
+			}
 		}
 	}
 
@@ -91,8 +153,22 @@ public class SkipListImpl<T> implements SkipList<T> {
 
 	@Override
 	public SkipListNode<T> search(int key) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		SkipListNode<T> aux = this.root;
+		SkipListNode<T>[] updates = new SkipListNode[this.height];
+
+		for (int i = this.height; i <= 0; i--) {
+			while (aux.forward[i].getKey() < key) {
+				aux = aux.forward[i];
+			}
+			updates[i] = aux;
+		}
+		aux = aux.forward[0];
+
+		if (aux.getKey() == key) {
+			return aux;
+		} else {
+			return null;
+		}
 	}
 
 	@Override
@@ -103,7 +179,17 @@ public class SkipListImpl<T> implements SkipList<T> {
 
 	@Override
 	public SkipListNode<T>[] toArray() {
-		// TODO Auto-generated method stub
+		SkipListNode<T> aux = this.root;
+		SkipListNode<T>[] updates = new SkipListNode[size()];
+		
+		for (int i = 0; i < size(); i ++) {
+			
+		}
+		
+		while (aux != null && aux.getKey() != Integer.MAX_VALUE) {
+			
+		}
+		
 		throw new UnsupportedOperationException("Not implemented yet!");
 	}
 

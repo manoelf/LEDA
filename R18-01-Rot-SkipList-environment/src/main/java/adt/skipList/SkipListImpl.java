@@ -30,8 +30,13 @@ public class SkipListImpl<T> implements SkipList<T> {
 	 * metodo deve conectar apenas o forward[0].
 	 */
 	private void connectRootToNil() {
-		// TODO Implement your code
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (USE_MAX_HEIGHT_AS_HEIGHT) {
+			for (int i = 0; i < maxHeight; i++) {
+				this.root.forward[i] = this.NIL.forward[i];
+			}
+		} else {
+			this.root.forward[0] = this.NIL.forward[0];
+		}
 	}
 
 	/**
@@ -49,8 +54,21 @@ public class SkipListImpl<T> implements SkipList<T> {
 
 	@Override
 	public void insert(int key, T newValue, int height) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+
+		if (height <= maxHeight && newValue != null) {
+			@SuppressWarnings("unchecked")
+			SkipListNode<T>[] updates = new SkipListNode[maxHeight];
+			SkipListNode<T> aux = this.root.getForward(maxHeight);
+
+			for (int i = maxHeight; i >= 0; i--) {
+				while (aux.getKey() < key) {
+					aux = aux.getForward(height);
+				}
+				updates[i++] = aux;
+			}
+			
+			SkipListNode<T> newSkip = new SkipListNode<T>(key, height, newValue);
+		}
 	}
 
 	@Override

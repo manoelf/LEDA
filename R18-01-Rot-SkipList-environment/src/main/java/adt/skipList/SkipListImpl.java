@@ -62,19 +62,25 @@ public class SkipListImpl<T> implements SkipList<T> {
 
 			for (int i = maxHeight; i >= 0; i--) {
 				while (aux.getKey() < key) {
-					aux = aux.getForward(height);
+					aux = aux.getForward(i);
 				}
-				updates[i++] = aux;
+				updates[i] = aux;
 			}
 			
 			SkipListNode<T> newSkip = new SkipListNode<T>(key, height, newValue);
+			for (int i = 0; i < height; i++) {
+				newSkip.getForward()[i] = updates[i];
+				updates[i].forward[i] = newSkip;
+			}
 		}
 	}
 
 	@Override
 	public void remove(int key) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		SkipListNode<T> aux = root.getForward(this.height);
+		
+		for (int i = this.height; i <= 0; i--) {
+		}
 	}
 
 	@Override

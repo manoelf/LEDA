@@ -1,7 +1,5 @@
 package adt.skipList;
 
-import sun.net.NetworkServer;
-
 public class SkipListImpl<T> implements SkipList<T> {
 
 	protected SkipListNode<T> root;
@@ -147,20 +145,24 @@ public class SkipListImpl<T> implements SkipList<T> {
 
 	@Override
 	public int height() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		SkipListNode<T> aux = this.root;
+		int i = 0;
+		for (i = 0; i < this.maxHeight; i++) {
+			if (aux.forward[i] == null || aux.forward[i].getKey() == Integer.MAX_VALUE ) {
+				return i;
+			}
+		}
+		return i;
 	}
 
 	@Override
 	public SkipListNode<T> search(int key) {
 		SkipListNode<T> aux = this.root;
-		SkipListNode<T>[] updates = new SkipListNode[this.height];
 
 		for (int i = this.height; i <= 0; i--) {
 			while (aux.forward[i].getKey() < key) {
 				aux = aux.forward[i];
 			}
-			updates[i] = aux;
 		}
 		aux = aux.forward[0];
 
@@ -173,24 +175,32 @@ public class SkipListImpl<T> implements SkipList<T> {
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		SkipListNode<T> aux = this.root.forward[0];
+		int size = 0;
+		
+		while (aux != null && aux.getKey() != Integer.MAX_VALUE) {
+			size++;
+			aux = aux.forward[0];
+		}
+		
+		return size;
 	}
 
 	@Override
 	public SkipListNode<T>[] toArray() {
 		SkipListNode<T> aux = this.root;
-		SkipListNode<T>[] updates = new SkipListNode[size()];
+		@SuppressWarnings("unchecked")
+		SkipListNode<T>[] array = new SkipListNode[size()];
 		
-		for (int i = 0; i < size(); i ++) {
+		int i = 0;
+
+		do {
+			array[i++] = aux;
+			aux  = aux.forward[0];
 			
-		}
-		
-		while (aux != null && aux.getKey() != Integer.MAX_VALUE) {
+		} while (aux != null);
 			
-		}
-		
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return array;
 	}
 
 }

@@ -107,15 +107,15 @@ public class StudentSkipListTest {
 	public void testSearch() {
 		skip.insert(10, "A", 2);
 		skip.insert(20, "B", 1);
-		skip.insert(0, "C", 1);
+		skip.insert(00, "C", 1);
 		skip.insert(15, "D", 3);
-		skip.insert(5, "E", 2);
+		skip.insert(05, "E", 2);
 
 		assertEquals("A", skip.search(10).getValue());
 		assertEquals("B", skip.search(20).getValue());
-		assertEquals("C", skip.search(0).getValue());
+		assertEquals("C", skip.search(00).getValue());
 		assertEquals("D", skip.search(15).getValue());
-		assertEquals("E", skip.search(5).getValue());
+		assertEquals("E", skip.search(05).getValue());
 
 		assertEquals(null, skip.search(-10));
 		assertEquals(null, skip.search(30));

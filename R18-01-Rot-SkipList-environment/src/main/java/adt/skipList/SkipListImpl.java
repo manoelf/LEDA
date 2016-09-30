@@ -45,6 +45,13 @@ public class SkipListImpl<T> implements SkipList<T> {
 		}
 		this.height = newHeight;
 	}
+	
+	private void recconectRootToNil() {
+		for (int i = 0; i < this.height; i++) {
+			if (root.forward[i] == null)
+				this.root.forward[i] = this.NIL;
+		}
+	}
 
 	/**
 	 * Metodo que gera uma altura aleatoria para ser atribuida a um novo no no
@@ -61,9 +68,15 @@ public class SkipListImpl<T> implements SkipList<T> {
 
 	@Override
 	public void insert(int key, T newValue, int height) {
+		
+		if (USE_MAX_HEIGHT_AS_HEIGHT) {
+			this.height = maxHeight;
+			recconectRootToNil();
+		} else {
+			updateHeight(height);
+		}
 
 		if (height >= 1 && height <= maxHeight && newValue != null) {
-			updateHeight(height);
 
 			@SuppressWarnings("unchecked")
 			// Array com as referencias para serem atualizadas
@@ -73,15 +86,15 @@ public class SkipListImpl<T> implements SkipList<T> {
 			SkipListNode<T> aux = this.root;
 
 			// Percorrer a estrutura ate encontrar o local aser inserido
-			for (int i = this.height; i >= 0; i--) {
-				while (aux.forward[i].getKey() < key) {
+			for (int i = this.height - 1; i >= 0; i--) {
+				while (aux.forward[i] != null  && aux.forward[i].getKey() < key) {
 					aux = aux.getForward(i);
 				}
 				updates[i] = aux;
 			}
 
 			// Referencia do skipNode que ficara a frente do node inserido
-			aux = aux.getForward()[0];
+			aux = aux.forward[0];
 
 			// Caso as chaves sejam iguais, sera mudado apenas o valor
 			if (aux.getKey() == key) {
@@ -108,7 +121,7 @@ public class SkipListImpl<T> implements SkipList<T> {
 						// Quando a altura do proximo eh menor, pego o do
 						// proximo dele para atualizar todos os forwrd do no
 						// inserido
-						if (i > aux.getHeight()) {
+						if (i >= aux.getHeight()) {
 							aux = aux.forward[0];
 						}
 						updates[i].forward[i] = newSkip;
@@ -124,8 +137,8 @@ public class SkipListImpl<T> implements SkipList<T> {
 		SkipListNode<T> aux = root;
 		SkipListNode<T>[] updates = new SkipListNode[this.height];
 
-		for (int i = this.height; i <= 0; i--) {
-			while (aux.forward[i].getKey() < key) {
+		for (int i = this.height -1; i >= 0; i--) {
+			while (aux != null && aux.forward[i].getKey() < key) {
 				aux = aux.forward[i];
 			}
 			updates[i] = aux;
@@ -159,8 +172,8 @@ public class SkipListImpl<T> implements SkipList<T> {
 	public SkipListNode<T> search(int key) {
 		SkipListNode<T> aux = this.root;
 
-		for (int i = this.height; i <= 0; i--) {
-			while (aux.forward[i].getKey() < key) {
+		for (int i = this.height - 1; i >= 0; i--) {
+			while (aux.forward[i] != null && aux.forward[i].getKey() < key) {
 				aux = aux.forward[i];
 			}
 		}
@@ -190,7 +203,7 @@ public class SkipListImpl<T> implements SkipList<T> {
 	public SkipListNode<T>[] toArray() {
 		SkipListNode<T> aux = this.root;
 		@SuppressWarnings("unchecked")
-		SkipListNode<T>[] array = new SkipListNode[size()];
+		SkipListNode<T>[] array = new SkipListNode[size()+2];
 		
 		int i = 0;
 

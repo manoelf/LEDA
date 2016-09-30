@@ -135,6 +135,7 @@ public class SkipListImpl<T> implements SkipList<T> {
 	@Override
 	public void remove(int key) {
 		SkipListNode<T> aux = root;
+		@SuppressWarnings("unchecked")
 		SkipListNode<T>[] updates = new SkipListNode[this.height];
 
 		for (int i = this.height -1; i >= 0; i--) {

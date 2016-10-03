@@ -53,7 +53,6 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 	// AUXILIARY
 	protected void rebalanceUp(BSTNode<T> node) {
 		if (node != null) {
-			BTNode<T> parent = node.getParent();
 			rebalance((BSTNode<T>) node);
 			rebalanceUp((BSTNode<T>) node.getParent());
 		}
@@ -145,10 +144,29 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 	public void remove(T element) {
 		if (element != null) {
 			BSTNode<T> node = search(element);
-			if (!node.isEmpty()){
-				super.remove(node);
-				rebalanceUp((BSTNode<T>) node.getParent());
+			BSTNode<T> toBeBalanced;;
+			if (!node.isEmpty()) {
+				if (hasTwoChild(node)) {
+					toBeBalanced = super.sucessor(element);
+				} else {
+					toBeBalanced = node;
+				}
+				
+				super.remove(element);
+				rebalanceUp((BSTNode<T>) toBeBalanced.getParent());
+				
 			}
+			
+		}
+	}
+	
+	public boolean hasTwoChild(BSTNode<T> node) {
+		if (node == null && node.isEmpty()) {
+			return false;
+		} else if (!node.getLeft().isEmpty() && !node.getRight().isEmpty()) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 

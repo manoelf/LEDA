@@ -161,7 +161,7 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	@Override
 	public T[] heapsort(T[] array) {
 		Comparator<T> comparatorTemp = this.comparator;
-		
+
 		this.comparator = new Comparator<T>() {
 
 			@Override
@@ -169,7 +169,7 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 				return o1.compareTo(o2);
 			}
 		};
-		
+
 		buildHeap(array);
 		@SuppressWarnings("unchecked")
 		T[] aux = (T[]) new Comparable[array.length];
@@ -179,6 +179,10 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 		}
 		this.comparator = comparatorTemp;
 		return aux;
+	}
+
+	public int getIndex() {
+		return index;
 	}
 
 	@Override
@@ -201,4 +205,6 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	public int compare(T element, T otherElement) {
 		return this.comparator.compare(element, otherElement);
 	}
+
 }
+
